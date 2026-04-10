@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>POSI — Point of Sale Innovation</title>
+  <meta name="description" content="POSI · POSM · POP · Display · Package Design 전문 크리에이티브 스튜디오"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <!-- Pretendard (국문 본문/공통) — CDN -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"/>
+  <!-- Space Grotesk (메인 영문 타이틀) + Inter (영문 UI) + Playfair Display (영문 프리미엄) -->
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&display=swap" rel="stylesheet"/>
+  <!-- Clash Display (영문 강렬함/구조적) — CDN -->
+  <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=clash-display@200,300,400,500,600,700&display=swap"/>
+  <link rel="stylesheet" href="css/style.css"/>
+</head>
+<body data-theme="light">
+
+  <!-- ── CURSOR ── -->
+  <div class="cursor" id="cursor"></div>
+
+  <!-- ── LOADER ── -->
+  <div class="loader" id="loader">
+    <div class="loader-content">
+      <svg class="l-logo" viewBox="0 0 200 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <text x="0" y="62" font-family="'Space Grotesk',sans-serif" font-weight="700"
+              font-size="72" letter-spacing="-3" fill="currentColor">POSI</text>
+        <circle class="l-dot" cx="192" cy="12" r="10" fill="#C8F73A"/>
+      </svg>
+      <div class="l-bar"><div class="l-fill"></div></div>
+    </div>
+  </div>
+
+  <!-- ── NAV ── -->
+  <header class="nav" id="nav">
+    <a href="#" class="nav-logo" aria-label="POSI 홈">
+      <!-- POSI SVG 로고 -->
+      <svg class="logo-svg" viewBox="0 0 140 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <text x="0" y="38" font-family="'Space Grotesk',sans-serif" font-weight="700"
+              font-size="40" letter-spacing="-2" fill="currentColor" class="logo-wordmark">POSI</text>
+        <circle class="logo-accent-dot" cx="133" cy="8" r="7" fill="#C8F73A"/>
+      </svg>
+    </a>
+
+    <nav class="nav-links" id="navLinks">
+      <a href="#about"   class="nl">About</a>
+      <a href="#service" class="nl">Service</a>
+      <a href="#work"    class="nl">Work</a>
+      <a href="#contact" class="nl">Contact</a>
+    </nav>
+
+    <div class="nav-util">
+      <button class="theme-toggle" id="themeToggle" aria-label="테마 전환">
+        <span class="t-icon t-sun">☀</span>
+        <span class="t-icon t-moon">☾</span>
+      </button>
+      <button class="hamburger" id="hamburger" aria-label="메뉴열기">
+        <span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ── MOBILE OVERLAY ── -->
+  <div class="mob-overlay" id="mobOverlay">
+    <div class="mob-nav">
+      <a href="#about"   class="mob-nl">About</a>
+      <a href="#service" class="mob-nl">Service</a>
+      <a href="#work"    class="mob-nl">Work</a>
+      <a href="#contact" class="mob-nl">Contact</a>
+    </div>
+    <div class="mob-foot">
+      <span>hello@posi.co.kr</span>
+      <span>Since 2001</span>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════
+       HERO
+  ═══════════════════════════════════ -->
+  <section class="hero" id="hero">
+
+    <!-- 배경 그리드 라인 -->
+    <div class="hero-grid-lines" aria-hidden="true">
+      <span></span><span></span><span></span><span></span><span></span>
+    </div>
+
+    <div class="hero-inner">
+
+      <!-- 서브 태그라인 -->
+      <div class="hero-tag fade-in" style="--d:0s">
+        <span class="tag-pill">Since 2001</span>
+        <span class="tag-sep">·</span>
+        <span>POSM / POP / Display / Package</span>
+      </div>
+
+      <!-- 초대형 타이틀 -->
+      <div class="hero-title-wrap">
+        <h1 class="hero-title">
+          <span class="ht-line fade-in" style="--d:.1s">
+            <span class="ht-outline">Point</span>
+          </span>
+          <span class="ht-line fade-in" style="--d:.22s">
+            <span class="ht-fill">of Sale</span>
+          </span>
+          <span class="ht-line ht-accent fade-in" style="--d:.34s">
+            <span class="ht-outline">Innovation</span>
+            <svg class="ht-dot-svg" viewBox="0 0 28 28"><circle cx="14" cy="14" r="14" fill="#C8F73A"/></svg>
+          </span>
+        </h1>
+      </div>
+
+      <!-- CTA 영역 -->
+      <div class="hero-bottom fade-in" style="--d:.5s">
+        <p class="hero-desc">
+          브랜드 접점에서 강렬한 인상을 남깁니다.<br>
+          기획부터 생산까지, 원스톱 솔루션.
+        </p>
+        <a href="#work" class="btn-primary">
+          <span>Work 보기</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- 스크롤 인디케이터 -->
+    <div class="hero-scroll-ind fade-in" style="--d:.8s">
+      <div class="scroll-track"><div class="scroll-thumb"></div></div>
+      <span>Scroll</span>
+    </div>
+
+    <!-- 우측 플로팅 스탯 -->
+    <div class="hero-float-stat fade-in" style="--d:.9s">
+      <div class="f-stat">
+        <span class="f-num" data-count="24">0</span><span class="f-unit">+</span>
+        <span class="f-label">Years</span>
+      </div>
+      <div class="f-stat">
+        <span class="f-num" data-count="1200">0</span><span class="f-unit">+</span>
+        <span class="f-label">Projects</span>
+      </div>
+      <div class="f-stat">
+        <span class="f-num" data-count="80">0</span><span class="f-unit">+</span>
+        <span class="f-label">Brands</span>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ── MARQUEE ── -->
+  <div class="marquee-band" aria-hidden="true">
+    <div class="mq-track">
+      <span>POSM</span><span class="mq-dot">●</span>
+      <span>POP DISPLAY</span><span class="mq-dot">●</span>
+      <span>PACKAGE DESIGN</span><span class="mq-dot">●</span>
+      <span>BRAND ACTIVATION</span><span class="mq-dot">●</span>
+      <span>VISUAL MERCHANDISING</span><span class="mq-dot">●</span>
+      <span>RETAIL EXPERIENCE</span><span class="mq-dot">●</span>
+      <!-- 복제 (무한루프용) -->
+      <span>POSM</span><span class="mq-dot">●</span>
+      <span>POP DISPLAY</span><span class="mq-dot">●</span>
+      <span>PACKAGE DESIGN</span><span class="mq-dot">●</span>
+      <span>BRAND ACTIVATION</span><span class="mq-dot">●</span>
+      <span>VISUAL MERCHANDISING</span><span class="mq-dot">●</span>
+      <span>RETAIL EXPERIENCE</span><span class="mq-dot">●</span>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════
+       ABOUT
+  ═══════════════════════════════════ -->
+  <section class="about section-pad" id="about">
+    <div class="wrap">
+
+      <div class="about-top">
+        <div class="section-num reveal">01</div>
+        <div class="section-label reveal">About</div>
+      </div>
+
+      <div class="about-body">
+        <div class="about-left">
+          <h2 class="about-headline reveal">
+            브랜드를<br>
+            <em>살아있게</em><br>
+            만드는 스튜디오
+          </h2>
+        </div>
+        <div class="about-right">
+          <p class="about-text reveal">
+            포시(POSI)는 2001년 설립 이후 국내외 주요 브랜드와 함께
+            혁신적인 <strong>POSM · POP · Display</strong> 솔루션을 개발해온
+            크리에이티브 스튜디오입니다.
+          </p>
+          <p class="about-text reveal">
+            단순 제작을 넘어, 브랜드의 본질적 가치를
+            소비자 접점에서 <strong>강렬한 경험</strong>으로 구현합니다.
+          </p>
+          <div class="about-kpi reveal">
+            <div class="kpi-item">
+              <span class="kpi-n">24<sup>+</sup></span>
+              <span class="kpi-l">Years</span>
+            </div>
+            <div class="kpi-div"></div>
+            <div class="kpi-item">
+              <span class="kpi-n">1,200<sup>+</sup></span>
+              <span class="kpi-l">Projects</span>
+            </div>
+            <div class="kpi-div"></div>
+            <div class="kpi-item">
+              <span class="kpi-n">80<sup>+</sup></span>
+              <span class="kpi-l">Brands</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- About 비주얼 배너 -->
+      <div class="about-visual reveal">
+        <div class="av-inner">
+          <span class="av-bg-text" aria-hidden="true">CREATIVE</span>
+          <div class="av-tags">
+            <span>기획</span>
+            <span>디자인</span>
+            <span>구조설계</span>
+            <span>생산</span>
+            <span>납품</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════
+       SERVICE
+  ═══════════════════════════════════ -->
+  <section class="service section-pad" id="service">
+    <div class="wrap">
+
+      <div class="sec-head reveal">
+        <div class="section-num">02</div>
+        <div class="section-label">Service</div>
+        <h2 class="sec-title">전문 <em>솔루션</em></h2>
+      </div>
+
+      <div class="svc-list">
+
+        <div class="svc-row reveal" data-svc="01">
+          <div class="svc-meta">
+            <span class="svc-num">01</span>
+            <span class="svc-cat">POSM / POP</span>
+          </div>
+          <div class="svc-name">
+            <h3>Point of Sale Materials</h3>
+          </div>
+          <div class="svc-tags">
+            <span>Floor Stand</span><span>Shelf Stopper</span><span>Glorifier</span><span>Wobblers</span>
+          </div>
+          <div class="svc-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+          </div>
+        </div>
+
+        <div class="svc-row reveal" data-svc="02">
+          <div class="svc-meta">
+            <span class="svc-num">02</span>
+            <span class="svc-cat">Display</span>
+          </div>
+          <div class="svc-name">
+            <h3>Display Design</h3>
+          </div>
+          <div class="svc-tags">
+            <span>Brand Display</span><span>3D Structure</span><span>LED Display</span><span>Interactive</span>
+          </div>
+          <div class="svc-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+          </div>
+        </div>
+
+        <div class="svc-row reveal" data-svc="03">
+          <div class="svc-meta">
+            <span class="svc-num">03</span>
+            <span class="svc-cat">Package</span>
+          </div>
+          <div class="svc-name">
+            <h3>Package Design</h3>
+          </div>
+          <div class="svc-tags">
+            <span>Gift Set</span><span>Premium Box</span><span>Eco Package</span><span>Limited Edition</span>
+          </div>
+          <div class="svc-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+          </div>
+        </div>
+
+        <div class="svc-row reveal" data-svc="04">
+          <div class="svc-meta">
+            <span class="svc-num">04</span>
+            <span class="svc-cat">Activation</span>
+          </div>
+          <div class="svc-name">
+            <h3>Brand Activation</h3>
+          </div>
+          <div class="svc-tags">
+            <span>Campaign</span><span>Pop-Up Store</span><span>Event Kit</span><span>VM Guide</span>
+          </div>
+          <div class="svc-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+          </div>
+        </div>
+
+        <div class="svc-row reveal" data-svc="05">
+          <div class="svc-meta">
+            <span class="svc-num">05</span>
+            <span class="svc-cat">Structural</span>
+          </div>
+          <div class="svc-name">
+            <h3>Structural Design</h3>
+          </div>
+          <div class="svc-tags">
+            <span>Die-cut</span><span>Corrugated</span><span>Acrylic</span><span>Metal Frame</span>
+          </div>
+          <div class="svc-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════
+       WORK
+  ═══════════════════════════════════ -->
+  <section class="work section-pad" id="work">
+    <div class="wrap">
+
+      <div class="sec-head reveal">
+        <div class="section-num">03</div>
+        <div class="section-label">Work</div>
+        <h2 class="sec-title">Selected <em>Projects</em></h2>
+        <div class="work-filter reveal">
+          <button class="wf-btn active" data-f="all">All</button>
+          <button class="wf-btn" data-f="posm">POSM</button>
+          <button class="wf-btn" data-f="display">Display</button>
+          <button class="wf-btn" data-f="package">Package</button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 풀블리드 그리드 -->
+    <div class="work-grid" id="workGrid">
+
+      <article class="wk-item wk-lg reveal" data-cat="posm">
+        <div class="wk-img wk-g1">
+          <div class="wk-over">
+            <span class="wk-tag">POSM · 2024</span>
+            <h3>Project A — Floor Stand Display</h3>
+          </div>
+          <div class="wk-icon">&#9632;</div>
+        </div>
+      </article>
+
+      <article class="wk-item reveal" data-cat="display">
+        <div class="wk-img wk-g2">
+          <div class="wk-over">
+            <span class="wk-tag">Display · 2024</span>
+            <h3>Project B — Glorifier Display</h3>
+          </div>
+          <div class="wk-icon">&#9670;</div>
+        </div>
+      </article>
+
+      <article class="wk-item reveal" data-cat="package">
+        <div class="wk-img wk-g3">
+          <div class="wk-over">
+            <span class="wk-tag">Package · 2024</span>
+            <h3>Project C — Premium Gift Set</h3>
+          </div>
+          <div class="wk-icon">&#9679;</div>
+        </div>
+      </article>
+
+      <article class="wk-item reveal" data-cat="posm">
+        <div class="wk-img wk-g4">
+          <div class="wk-over">
+            <span class="wk-tag">POSM · 2023</span>
+            <h3>Project D — Shelf Display System</h3>
+          </div>
+          <div class="wk-icon">&#9651;</div>
+        </div>
+      </article>
+
+      <article class="wk-item wk-lg reveal" data-cat="display">
+        <div class="wk-img wk-g5">
+          <div class="wk-over">
+            <span class="wk-tag">Display · 2023</span>
+            <h3>Project E — Brand Pop-Up Space</h3>
+          </div>
+          <div class="wk-icon">&#9632;</div>
+        </div>
+      </article>
+
+      <article class="wk-item reveal" data-cat="package">
+        <div class="wk-img wk-g6">
+          <div class="wk-over">
+            <span class="wk-tag">Package · 2023</span>
+            <h3>Project F — Eco Package Series</h3>
+          </div>
+          <div class="wk-icon">&#9679;</div>
+        </div>
+      </article>
+
+    </div>
+
+    <div class="wrap">
+      <div class="work-more reveal">
+        <a href="#contact" class="btn-ghost">
+          <span>프로젝트 문의하기</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════
+       CLIENT — KT&G only
+  ═══════════════════════════════════ -->
+  <section class="client section-pad">
+    <div class="wrap">
+
+      <div class="sec-head reveal">
+        <div class="section-num">04</div>
+        <div class="section-label">Client</div>
+        <h2 class="sec-title">함께하는 <em>브랜드</em></h2>
+      </div>
+
+      <div class="client-showcase reveal">
+        <div class="cs-main">
+          <!-- KT&G 로고 대형 표시 -->
+          <div class="cs-logo-wrap">
+            <svg class="cs-ktg-svg" viewBox="0 0 320 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- KT&G 텍스트 로고 -->
+              <text x="0" y="90" font-family="'Space Grotesk',sans-serif" font-weight="700"
+                    font-size="88" letter-spacing="-2" fill="currentColor">KT&amp;G</text>
+              <rect x="0" y="100" width="320" height="3" fill="#C8F73A" rx="2"/>
+            </svg>
+          </div>
+          <p class="cs-desc">
+            국내 1위 담배·건강기능식품 기업<br>
+            <strong>KT&G</strong>와 함께 다수의 POSM 및 POP 프로젝트를 성공적으로 진행했습니다.
+          </p>
+        </div>
+        <div class="cs-detail">
+          <div class="cs-stat-row">
+            <div class="cs-stat">
+              <span class="cs-sn">100<sup>+</sup></span>
+              <span class="cs-sl">KT&G 프로젝트</span>
+            </div>
+            <div class="cs-stat">
+              <span class="cs-sn">10<sup>+</sup></span>
+              <span class="cs-sl">협업 연수</span>
+            </div>
+          </div>
+          <div class="cs-tags">
+            <span>POSM</span>
+            <span>POP Display</span>
+            <span>Shelf System</span>
+            <span>Brand Activation</span>
+            <span>Package Design</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 그 외 파트너는 수치만 표기 -->
+      <div class="partner-note reveal">
+        <p>그 외 <strong>다수의 글로벌 · 국내 브랜드</strong>와 협업 중 — 기밀 유지 계약에 따라 공개 불가</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════
+       PROCESS
+  ═══════════════════════════════════ -->
+  <section class="process section-pad">
+    <div class="wrap">
+
+      <div class="sec-head reveal">
+        <div class="section-num">05</div>
+        <div class="section-label">Process</div>
+        <h2 class="sec-title">How We <em>Work</em></h2>
+      </div>
+
+      <div class="proc-list">
+        <div class="proc-item reveal" style="--d:0s">
+          <div class="pi-num">01</div>
+          <h3 class="pi-title">Briefing</h3>
+          <p class="pi-desc">브랜드 목표 파악, 시장 분석, 타겟 리서치</p>
+        </div>
+        <div class="proc-sep reveal" style="--d:.05s">→</div>
+        <div class="proc-item reveal" style="--d:.1s">
+          <div class="pi-num">02</div>
+          <h3 class="pi-title">Concept</h3>
+          <p class="pi-desc">크리에이티브 컨셉 개발, 무드보드 제작</p>
+        </div>
+        <div class="proc-sep reveal" style="--d:.15s">→</div>
+        <div class="proc-item reveal" style="--d:.2s">
+          <div class="pi-num">03</div>
+          <h3 class="pi-title">Design</h3>
+          <p class="pi-desc">3D 렌더링, 구조 설계, 소재 선정</p>
+        </div>
+        <div class="proc-sep reveal" style="--d:.25s">→</div>
+        <div class="proc-item reveal" style="--d:.3s">
+          <div class="pi-num">04</div>
+          <h3 class="pi-title">Production</h3>
+          <p class="pi-desc">프로토타입, 품질 테스트, 양산 관리</p>
+        </div>
+        <div class="proc-sep reveal" style="--d:.35s">→</div>
+        <div class="proc-item reveal" style="--d:.4s">
+          <div class="pi-num">05</div>
+          <h3 class="pi-title">Delivery</h3>
+          <p class="pi-desc">현장 설치, 셋업, 사후 관리</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════
+       CONTACT
+  ═══════════════════════════════════ -->
+  <section class="contact section-pad" id="contact">
+    <div class="wrap">
+
+      <div class="sec-head reveal">
+        <div class="section-num">06</div>
+        <div class="section-label">Contact</div>
+      </div>
+
+      <div class="contact-hero reveal">
+        <h2 class="contact-big">
+          Let's<br><em>Work</em><br>Together
+          <svg class="contact-dot-svg" viewBox="0 0 32 32"><circle cx="16" cy="16" r="16" fill="#C8F73A"/></svg>
+        </h2>
+      </div>
+
+      <div class="contact-body">
+        <div class="contact-info reveal">
+          <a href="mailto:hello@posi.co.kr" class="ci-link">
+            <span class="ci-label">Email</span>
+            <span class="ci-val">hello@posi.co.kr →</span>
+          </a>
+          <a href="tel:02-XXXXXXXX" class="ci-link">
+            <span class="ci-label">Phone</span>
+            <span class="ci-val">02 · XXX · XXXX →</span>
+          </a>
+          <div class="ci-link">
+            <span class="ci-label">Location</span>
+            <span class="ci-val">Seoul, Korea</span>
+          </div>
+        </div>
+
+        <form class="contact-form reveal" id="contactForm" novalidate>
+          <div class="cf-row">
+            <div class="cf-group">
+              <label>이름</label>
+              <input type="text" placeholder="홍길동" required/>
+            </div>
+            <div class="cf-group">
+              <label>회사</label>
+              <input type="text" placeholder="회사명"/>
+            </div>
+          </div>
+          <div class="cf-group">
+            <label>이메일</label>
+            <input type="email" placeholder="email@company.com" required/>
+          </div>
+          <div class="cf-group">
+            <label>서비스</label>
+            <select>
+              <option value="">선택</option>
+              <option>POSM / POP</option>
+              <option>Display Design</option>
+              <option>Package Design</option>
+              <option>Brand Activation</option>
+              <option>기타</option>
+            </select>
+          </div>
+          <div class="cf-group">
+            <label>메시지</label>
+            <textarea rows="4" placeholder="프로젝트를 소개해주세요..." required></textarea>
+          </div>
+          <button type="submit" class="btn-submit">
+            <span>보내기</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+        </form>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer class="footer">
+    <div class="wrap">
+      <div class="footer-top">
+        <svg class="ft-logo-svg" viewBox="0 0 140 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <text x="0" y="38" font-family="'Space Grotesk',sans-serif" font-weight="700"
+                font-size="40" letter-spacing="-2" fill="currentColor">POSI</text>
+          <circle cx="133" cy="8" r="7" fill="#C8F73A"/>
+        </svg>
+        <p>Point of Sale Innovation<br>브랜드의 가치를 경험으로</p>
+      </div>
+      <div class="footer-mid">
+        <div class="fm-col">
+          <h4>Service</h4>
+          <a href="#">POSM / POP</a>
+          <a href="#">Display Design</a>
+          <a href="#">Package Design</a>
+          <a href="#">Brand Activation</a>
+        </div>
+        <div class="fm-col">
+          <h4>Company</h4>
+          <a href="#about">About</a>
+          <a href="#work">Portfolio</a>
+          <a href="#contact">Contact</a>
+        </div>
+        <div class="fm-col">
+          <h4>Follow</h4>
+          <a href="#">Instagram</a>
+          <a href="#">LinkedIn</a>
+          <a href="#">Behance</a>
+        </div>
+      </div>
+      <div class="footer-bot">
+        <span>© 2025 POSI Co., Ltd. All Rights Reserved.</span>
+        <span>Seoul, Korea</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast -->
+  <div class="toast" id="toast">
+    <span>✓</span> 메시지가 전송되었습니다.
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
