@@ -8,7 +8,7 @@
 |------|------|
 | **참고** | foundfounded.com (서울 크리에이티브 스튜디오) |
 | **철학** | Ultra-minimal · Typographic Impact · Less is More |
-| **컬러** | Light `#F5F4F0` / Dark `#0A0A0A` + Accent `#C8F73A` |
+| **컬러** | Light `#F5F4F0` / Dark `#0A0A0A` + Accent `#FF6B2B` |
 | **폰트** | 5-Font System (아래 참고) |
 | **로고** | SVG 인라인 — 워드마크 + **Neon Lime 도트** |
 

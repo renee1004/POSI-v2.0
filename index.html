@@ -1,651 +1,1086 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>POSI — Point of Sale Innovation</title>
-  <meta name="description" content="POSI · POSM · POP · Display · Package Design 전문 크리에이티브 스튜디오"/>
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <!-- Pretendard (국문 본문/공통) — CDN -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"/>
-  <!-- Space Grotesk (메인 영문 타이틀) + Inter (영문 UI) + Playfair Display (영문 프리미엄) -->
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&display=swap" rel="stylesheet"/>
-  <!-- Clash Display (영문 강렬함/구조적) — CDN -->
-  <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=clash-display@200,300,400,500,600,700&display=swap"/>
-  <link rel="stylesheet" href="css/style.css"/>
-</head>
-<body data-theme="light">
 
-  <!-- ── CURSOR ── -->
-  <div class="cursor" id="cursor"></div>
+/* ============================================================
+   POSI — 2025 Redesign v2.1
+   Inspired by foundfounded.com
+   Philosophy: Ultra-minimal · Impact typography · Brutal white
+   Font Strategy:
+     --font-kr   : Pretendard (국문 본문/공통 — 가독성 극강)
+     --font-title : Space Grotesk (메인 영문 타이틀 — 모던/트렌디)
+     --font-en    : Inter (영문 UI/본문 — IT/미니멀)
+     --font-luxury: Playfair Display (영문 포인트 — 하이엔드/매거진)
+   ============================================================ */
 
-  <!-- ── LOADER ── -->
-  <div class="loader" id="loader">
-    <div class="loader-content">
-      <svg class="l-logo" viewBox="0 0 200 72" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <text x="0" y="62" font-family="'Space Grotesk',sans-serif" font-weight="700"
-              font-size="72" letter-spacing="-3" fill="currentColor">POSI</text>
-        <circle class="l-dot" cx="192" cy="12" r="10" fill="#C8F73A"/>
-      </svg>
-      <div class="l-bar"><div class="l-fill"></div></div>
-    </div>
-  </div>
+/* ── TOKENS ── */
+:root {
+  --accent:   #FF6B2B;
+  --accent-dk:#686868;
 
-  <!-- ── NAV ── -->
-  <header class="nav" id="nav">
-    <a href="#" class="nav-logo" aria-label="POSI 홈">
-      <!-- POSI SVG 로고 -->
-      <svg class="logo-svg" viewBox="0 0 140 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <text x="0" y="38" font-family="'Space Grotesk',sans-serif" font-weight="700"
-              font-size="40" letter-spacing="-2" fill="currentColor" class="logo-wordmark">POSI</text>
-        <circle class="logo-accent-dot" cx="133" cy="8" r="7" fill="#C8F73A"/>
-      </svg>
-    </a>
+  /* Light theme (default) */
+  --bg:       #F5F4F0;
+  --fg:       #000000;          /* 베이지 배경 위 → 순수 블랙 */
+  --mid:      #3a3a3a;          /* 보조 텍스트도 진하게 */
+  --border:   rgba(0,0,0,.12);
+  --card-bg:  #EEECEA;
+  --nav-bg:   rgba(245,244,240,.92);
 
-    <nav class="nav-links" id="navLinks">
-      <a href="#about"   class="nl">About</a>
-      <a href="#service" class="nl">Service</a>
-      <a href="#work"    class="nl">Work</a>
-      <a href="#contact" class="nl">Contact</a>
-    </nav>
+  /* ── FONT SYSTEM ── */
+  --font-kr:     'Pretendard Variable', 'Pretendard', -apple-system, sans-serif;
+  --font-title:  'Space Grotesk', 'Inter', sans-serif;   /* 메인 영문 타이틀 — 이전 버전 복원 */
+  --font-en:     'Inter', -apple-system, sans-serif;
+  --font-luxury: 'Playfair Display', Georgia, serif;
+  --font:        'Pretendard Variable', 'Pretendard', 'Space Grotesk', -apple-system, sans-serif;
+  --ease:     cubic-bezier(.19,1,.22,1);
+  --ease-in:  cubic-bezier(.55,.055,.675,.19);
+  --r:        16px;
+  --r2:       28px;
+}
 
-    <div class="nav-util">
-      <button class="theme-toggle" id="themeToggle" aria-label="테마 전환">
-        <span class="t-icon t-sun">☀</span>
-        <span class="t-icon t-moon">☾</span>
-      </button>
-      <button class="hamburger" id="hamburger" aria-label="메뉴열기">
-        <span></span><span></span>
-      </button>
-    </div>
-  </header>
+[data-theme="dark"] {
+  --bg:       #0A0A0A;
+  --fg:       #F0EFE9;
+  --mid:      #888;
+  --border:   rgba(240,239,233,.1);
+  --card-bg:  #141414;
+  --nav-bg:   rgba(10,10,10,.92);
+}
 
-  <!-- ── MOBILE OVERLAY ── -->
-  <div class="mob-overlay" id="mobOverlay">
-    <div class="mob-nav">
-      <a href="#about"   class="mob-nl">About</a>
-      <a href="#service" class="mob-nl">Service</a>
-      <a href="#work"    class="mob-nl">Work</a>
-      <a href="#contact" class="mob-nl">Contact</a>
-    </div>
-    <div class="mob-foot">
-      <span>hello@posi.co.kr</span>
-      <span>Since 2001</span>
-    </div>
-  </div>
+/* ══════════════════════════════════════
+   베이지 배경 섹션 — 폰트 컬러 블랙 고정
+   (Hero, About, Work, Contact = var(--bg) 베이지 배경)
+══════════════════════════════════════ */
 
-  <!-- ═══════════════════════════════════
-       HERO
-  ═══════════════════════════════════ -->
-  <section class="hero" id="hero">
+/* Hero — 베이지 배경, 타이틀/본문 블랙 */
+.hero { color: #000; }
+.ht-outline { -webkit-text-stroke-color: #000 !important; }
+.hero .ht-fill { color: #000 !important; }
+.hero .ht-fill .ht-highlight { color: #000 !important; }
+.hero-desc  { color: #3a3a3a !important; }
+.hero-tag   { color: #3a3a3a !important; }
+.f-num      { color: #000 !important; }
+.hero-scroll-ind { color: #3a3a3a !important; }
+/* 기본 상태 — 오렌지 배경 고정 */
+.ht-highlight {
+  background: var(--accent);
+  color: #000;
+  padding: 0.08px 8px;         /* 상하 2px만 */
+  display: inline;          /* inline으로 텍스트에 딱 붙게 */
+  line-height: 0.1;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
 
-    <!-- 배경 그리드 라인 -->
-    <div class="hero-grid-lines" aria-hidden="true">
-      <span></span><span></span><span></span><span></span><span></span>
-    </div>
+/* 드래그 선택 시 — 라임색으로 */
+.ht-highlight::selection {
+  background: #C8F73A;              /* 라임 */
+  color: #000;
+}
 
-    <div class="hero-inner">
+/* About — 베이지 배경 */
+.about { color: #000; }
+.about-headline { color: #000; }
+.about-text     { color: #3a3a3a; }
+.about-text strong { color: #000; }
+.kpi-n          { color: #000; }
+.kpi-l          { color: #3a3a3a; }
 
-      <!-- 서브 태그라인 -->
-      <div class="hero-tag fade-in" style="--d:0s">
-        <span class="tag-pill">Since 2001</span>
-        <span class="tag-sep">·</span>
-        <span>POSM / POP / Display / Package</span>
-      </div>
+/* Service — card-bg(베이지 계열) */
+.service { color: #000; }
+.svc-name h3 { color: #000 !important; }
+.svc-num     { color: #3a3a3a; }
 
-      <!-- 초대형 타이틀 -->
-      <div class="hero-title-wrap">
-        <h1 class="hero-title">
-          <span class="ht-line fade-in" style="--d:.1s">
-            <span class="ht-outline">Point</span>
-          </span>
-          <span class="ht-line fade-in" style="--d:.22s">
-            <span class="ht-fill">of Sale</span>
-          </span>
-          <span class="ht-line ht-accent fade-in" style="--d:.34s">
-            <span class="ht-outline">Innovation</span>
-            <svg class="ht-dot-svg" viewBox="0 0 28 28"><circle cx="14" cy="14" r="14" fill="#C8F73A"/></svg>
-          </span>
-        </h1>
-      </div>
+/* Work — 베이지 배경 */
+.work { color: #000; }
+.sec-title { color: #000; }
+.section-num { color: #3a3a3a; }
 
-      <!-- CTA 영역 -->
-      <div class="hero-bottom fade-in" style="--d:.5s">
-        <p class="hero-desc">
-          브랜드 접점에서 강렬한 인상을 남깁니다.<br>
-          기획부터 생산까지, 원스톱 솔루션.
-        </p>
-        <a href="#work" class="btn-primary">
-          <span>Work 보기</span>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </a>
-      </div>
-    </div>
+/* Process — card-bg(베이지 계열) */
+.process { color: #000; }
+.pi-title { color: #000 !important; }
+.pi-desc  { color: #3a3a3a !important; }
 
-    <!-- 스크롤 인디케이터 -->
-    <div class="hero-scroll-ind fade-in" style="--d:.8s">
-      <div class="scroll-track"><div class="scroll-thumb"></div></div>
-      <span>Scroll</span>
-    </div>
+/* Contact — 베이지 배경 */
+.contact { color: #000; }
+.contact-big  { color: #000 !important; }
+.ci-val       { color: #000 !important; }
+.ci-label     { color: #3a3a3a !important; }
+.cf-group label { color: #3a3a3a !important; }
+.cf-group input,
+.cf-group select,
+.cf-group textarea { color: #000 !important; }
 
-    <!-- 우측 플로팅 스탯 -->
-    <div class="hero-float-stat fade-in" style="--d:.9s">
-      <div class="f-stat">
-        <span class="f-num" data-count="24">0</span><span class="f-unit">+</span>
-        <span class="f-label">Years</span>
-      </div>
-      <div class="f-stat">
-        <span class="f-num" data-count="1200">0</span><span class="f-unit">+</span>
-        <span class="f-label">Projects</span>
-      </div>
-      <div class="f-stat">
-        <span class="f-num" data-count="80">0</span><span class="f-unit">+</span>
-        <span class="f-label">Brands</span>
-      </div>
-    </div>
+/* 다크모드에서는 원래대로 복원 */
+[data-theme="dark"] .hero,
+[data-theme="dark"] .about,
+[data-theme="dark"] .service,
+[data-theme="dark"] .work,
+[data-theme="dark"] .process,
+[data-theme="dark"] .contact { color: var(--fg); }
+[data-theme="dark"] .ht-outline { -webkit-text-stroke-color: var(--fg) !important; }
+[data-theme="dark"] .ht-fill    { color: var(--fg) !important; }
+[data-theme="dark"] .hero-desc  { color: var(--mid) !important; }
+[data-theme="dark"] .hero-tag   { color: var(--mid) !important; }
+[data-theme="dark"] .f-num      { color: var(--fg) !important; }
+[data-theme="dark"] .hero-scroll-ind { color: var(--mid) !important; }
+[data-theme="dark"] .about-headline  { color: var(--fg); }
+[data-theme="dark"] .about-text      { color: var(--mid); }
+[data-theme="dark"] .about-text strong { color: var(--fg); }
+[data-theme="dark"] .kpi-n           { color: var(--fg); }
+[data-theme="dark"] .kpi-l           { color: var(--mid); }
+[data-theme="dark"] .svc-name h3     { color: var(--fg) !important; }
+[data-theme="dark"] .sec-title       { color: var(--fg); }
+[data-theme="dark"] .section-num     { color: var(--mid); }
+[data-theme="dark"] .pi-title        { color: var(--fg) !important; }
+[data-theme="dark"] .pi-desc         { color: var(--mid) !important; }
+[data-theme="dark"] .contact-big     { color: var(--fg) !important; }
+[data-theme="dark"] .ci-val          { color: var(--fg) !important; }
+[data-theme="dark"] .ci-label        { color: var(--mid) !important; }
+[data-theme="dark"] .cf-group label  { color: var(--mid) !important; }
+[data-theme="dark"] .cf-group input,
+[data-theme="dark"] .cf-group select,
+[data-theme="dark"] .cf-group textarea { color: var(--fg) !important; }
 
-  </section>
+/* ── RESET ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; scroll-behavior: smooth; }
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--fg);
+  overflow-x: hidden;
+  cursor: none;
+  transition: background .5s var(--ease), color .5s var(--ease);
+}
+a { text-decoration: none; color: inherit; }
+ul { list-style: none; }
+button { border: none; background: none; cursor: none; font-family: inherit; }
+img { max-width: 100%; display: block; }
+::selection { background: var(--accent); color: #000; }
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--accent); }
 
-  <!-- ── MARQUEE ── -->
-  <div class="marquee-band" aria-hidden="true">
-    <div class="mq-track">
-      <span>POSM</span><span class="mq-dot">●</span>
-      <span>POP DISPLAY</span><span class="mq-dot">●</span>
-      <span>PACKAGE DESIGN</span><span class="mq-dot">●</span>
-      <span>BRAND ACTIVATION</span><span class="mq-dot">●</span>
-      <span>VISUAL MERCHANDISING</span><span class="mq-dot">●</span>
-      <span>RETAIL EXPERIENCE</span><span class="mq-dot">●</span>
-      <!-- 복제 (무한루프용) -->
-      <span>POSM</span><span class="mq-dot">●</span>
-      <span>POP DISPLAY</span><span class="mq-dot">●</span>
-      <span>PACKAGE DESIGN</span><span class="mq-dot">●</span>
-      <span>BRAND ACTIVATION</span><span class="mq-dot">●</span>
-      <span>VISUAL MERCHANDISING</span><span class="mq-dot">●</span>
-      <span>RETAIL EXPERIENCE</span><span class="mq-dot">●</span>
-    </div>
-  </div>
+/* ── WRAP ── */
+.wrap { max-width: 1320px; margin: 0 auto; padding: 0 60px; }
+.section-pad { padding: 140px 0; }
 
-  <!-- ═══════════════════════════════════
-       ABOUT
-  ═══════════════════════════════════ -->
-  <section class="about section-pad" id="about">
-    <div class="wrap">
+/* ── CURSOR ── */
+.cursor {
+  position: fixed; top: 0; left: 0; z-index: 9999;
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  background: var(--accent);
+  pointer-events: none;
+  transform: translate(-50%,-50%);
+  transition: width .25s var(--ease), height .25s var(--ease), background .25s;
+  mix-blend-mode: multiply;
+}
+[data-theme="dark"] .cursor { mix-blend-mode: screen; }
+.cursor.big { width: 60px; height: 60px; background: rgba(255, 107, 43, 0.2); }
+.cursor.click { width: 8px; height: 8px; }
 
-      <div class="about-top">
-        <div class="section-num reveal">01</div>
-        <div class="section-label reveal">About</div>
-      </div>
+/* ── LOADER ── */
+.loader {
+  position: fixed; inset: 0; z-index: 9000;
+  background: var(--fg);
+  display: flex; align-items: center; justify-content: center;
+  transition: opacity .7s var(--ease), visibility .7s;
+}
+.loader.out { opacity: 0; visibility: hidden; pointer-events: none; }
+.loader-content { text-align: center; }
+.l-logo {
+  width: clamp(160px, 20vw, 260px); height: auto;
+  color: var(--bg);
+  display: block; margin: 0 auto 28px;
+}
+.l-dot { transform-origin: center; animation: ldotPulse 1.2s ease infinite alternate; }
+@keyframes ldotPulse { from{r:8} to{r:12} }
+.l-bar {
+  width: 200px; height: 1px;
+  background: rgba(255,255,255,.15);
+  margin: 0 auto; overflow: hidden;
+}
+.l-fill {
+  height: 100%; width: 0;
+  background: var(--accent);
+  animation: lFill 1.8s var(--ease) forwards;
+}
+@keyframes lFill { to { width: 100%; } }
 
-      <div class="about-body">
-        <div class="about-left">
-          <h2 class="about-headline reveal">
-            브랜드를<br>
-            <em>살아있게</em><br>
-            만드는 스튜디오
-          </h2>
-        </div>
-        <div class="about-right">
-          <p class="about-text reveal">
-            포시(POSI)는 2001년 설립 이후 국내외 주요 브랜드와 함께
-            혁신적인 <strong>POSM · POP · Display</strong> 솔루션을 개발해온
-            크리에이티브 스튜디오입니다.
-          </p>
-          <p class="about-text reveal">
-            단순 제작을 넘어, 브랜드의 본질적 가치를
-            소비자 접점에서 <strong>강렬한 경험</strong>으로 구현합니다.
-          </p>
-          <div class="about-kpi reveal">
-            <div class="kpi-item">
-              <span class="kpi-n">24<sup>+</sup></span>
-              <span class="kpi-l">Years</span>
-            </div>
-            <div class="kpi-div"></div>
-            <div class="kpi-item">
-              <span class="kpi-n">1,200<sup>+</sup></span>
-              <span class="kpi-l">Projects</span>
-            </div>
-            <div class="kpi-div"></div>
-            <div class="kpi-item">
-              <span class="kpi-n">80<sup>+</sup></span>
-              <span class="kpi-l">Brands</span>
-            </div>
-          </div>
-        </div>
-      </div>
+/* ── NAV ── */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 800;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 28px 60px;
+  transition: padding .4s var(--ease), background .4s, backdrop-filter .4s;
+}
+.nav.stuck {
+  padding: 16px 60px;
+  background: var(--nav-bg);
+  backdrop-filter: blur(24px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo { display: flex; align-items: center; }
+.logo-svg {
+  width: 120px; height: auto;
+  color: var(--fg);
+  transition: color .3s;
+}
+.logo-accent-dot { filter: drop-shadow(0 0 8px rgba(255, 107, 43, 0.2)); }
+.nav-links {
+  display: flex; gap: 40px; align-items: center;
+}
+.nl {
+  font-size: 13px; font-weight: 500;
+  letter-spacing: .06em; text-transform: uppercase;
+  color: var(--mid);
+  font-family: var(--font-en);
+  position: relative;
+  transition: color .3s;
+}
+.nl::after {
+  content: ''; position: absolute; bottom: -3px; left: 0;
+  width: 0; height: 1.5px; background: var(--accent);
+  transition: width .35s var(--ease);
+}
+.nl:hover { color: var(--fg); }
+.nl:hover::after { width: 100%; }
 
-      <!-- About 비주얼 배너 -->
-      <div class="about-visual reveal">
-        <div class="av-inner">
-          <span class="av-bg-text" aria-hidden="true">CREATIVE</span>
-          <div class="av-tags">
-            <span>기획</span>
-            <span>디자인</span>
-            <span>구조설계</span>
-            <span>생산</span>
-            <span>납품</span>
-          </div>
-        </div>
-      </div>
+.nav-util { display: flex; align-items: center; gap: 20px; }
 
-    </div>
-  </section>
+/* Theme toggle */
+.theme-toggle {
+  width: 36px; height: 36px; border-radius: 50%;
+  border: 1.5px solid var(--border) !important;
+  display: flex; align-items: center; justify-content: center;
+  transition: border-color .3s, background .3s;
+  position: relative; overflow: hidden;
+}
+.theme-toggle:hover { border-color: var(--accent) !important; background: rgba(255,107,43,.08); }
+.t-icon { position: absolute; font-size: 15px; transition: opacity .3s, transform .3s; }
+.t-sun  { opacity: 1; transform: translateY(0); }
+.t-moon { opacity: 0; transform: translateY(10px); }
+[data-theme="dark"] .t-sun  { opacity: 0; transform: translateY(-10px); }
+[data-theme="dark"] .t-moon { opacity: 1; transform: translateY(0); }
 
-  <!-- ═══════════════════════════════════
-       SERVICE
-  ═══════════════════════════════════ -->
-  <section class="service section-pad" id="service">
-    <div class="wrap">
+/* Hamburger */
+.hamburger {
+  display: none; flex-direction: column; gap: 6px;
+  width: 30px; padding: 5px 0;
+}
+.hamburger span {
+  display: block; height: 1.5px; background: var(--fg);
+  transition: transform .35s var(--ease), opacity .3s;
+}
+.hamburger.open span:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
 
-      <div class="sec-head reveal">
-        <div class="section-num">02</div>
-        <div class="section-label">Service</div>
-        <h2 class="sec-title">전문 <em>솔루션</em></h2>
-      </div>
+/* ── MOBILE OVERLAY ── */
+.mob-overlay {
+  position: fixed; inset: 0; z-index: 700;
+  background: var(--fg);
+  display: flex; flex-direction: column;
+  padding: 120px 60px 60px;
+  opacity: 0; visibility: hidden;
+  transition: opacity .5s var(--ease), visibility .5s;
+}
+.mob-overlay.open { opacity: 1; visibility: visible; }
+.mob-nav { margin-bottom: auto; }
+.mob-nl {
+  display: block;
+  font-size: clamp(42px, 9vw, 80px);
+  font-weight: 700;
+  letter-spacing: -.03em;
+  color: var(--bg);
+  line-height: 1.15;
+  font-family: var(--font-title);
+  border-bottom: 1px solid rgba(255,255,255,.1);
+  padding: 16px 0;
+  transition: padding-left .3s var(--ease);
+}
+.mob-nl:hover { padding-left: 16px; color: var(--accent); }
+.mob-foot { display: flex; gap: 32px; font-size: 13px; color: rgba(255,255,255,.4); }
 
-      <div class="svc-list">
+/* ── FADE-IN (Hero) ── */
+.fade-in {
+  opacity: 0; transform: translateY(24px);
+  animation: fadeUp .9s var(--ease) forwards;
+  animation-delay: var(--d, 0s);
+}
+@keyframes fadeUp {
+  to { opacity: 1; transform: translateY(0); }
+}
 
-        <div class="svc-row reveal" data-svc="01">
-          <div class="svc-meta">
-            <span class="svc-num">01</span>
-            <span class="svc-cat">POSM / POP</span>
-          </div>
-          <div class="svc-name">
-            <h3>Point of Sale Materials</h3>
-          </div>
-          <div class="svc-tags">
-            <span>Floor Stand</span><span>Shelf Stopper</span><span>Glorifier</span><span>Wobblers</span>
-          </div>
-          <div class="svc-arrow">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
-          </div>
-        </div>
+/* ── REVEAL (Scroll) ── */
+.reveal {
+  opacity: 0; transform: translateY(36px);
+  transition: opacity .9s var(--ease), transform .9s var(--ease);
+  transition-delay: var(--d, 0s);
+}
+.reveal.in { opacity: 1; transform: translateY(0); }
 
-        <div class="svc-row reveal" data-svc="02">
-          <div class="svc-meta">
-            <span class="svc-num">02</span>
-            <span class="svc-cat">Display</span>
-          </div>
-          <div class="svc-name">
-            <h3>Display Design</h3>
-          </div>
-          <div class="svc-tags">
-            <span>Brand Display</span><span>3D Structure</span><span>LED Display</span><span>Interactive</span>
-          </div>
-          <div class="svc-arrow">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
-          </div>
-        </div>
+/* ── SECTION LABELS ── */
+.section-num {
+  font-size: 11px; font-weight: 700;
+  letter-spacing: .2em; text-transform: uppercase;
+  color: var(--mid);
+  font-family: var(--font-en);
+  font-variant-numeric: tabular-nums;
+}
+.section-label {
+  font-size: 11px; font-weight: 600;
+  letter-spacing: .18em; text-transform: uppercase;
+  color: var(--accent);
+  font-family: var(--font-en);
+  background: rgba(255,107,43,.12);
+  border: 1px solid rgba(255,107,43,.35);
+  padding: 5px 14px; border-radius: 100px;
+  display: inline-block;
+}
+.sec-head {
+  display: flex; align-items: center; flex-wrap: wrap;
+  gap: 16px 28px; margin-bottom: 80px;
+}
+.sec-title {
+  font-size: clamp(40px, 5vw, 68px);
+  font-weight: 700; letter-spacing: -.03em;
+  line-height: 1.05;
+  flex: 1 0 100%; margin-top: 16px;
+  /* 국문 제목: 프리텐다드 + 영문 포인트: Clash Display */
+  font-family: var(--font-kr);
+}
+.sec-title em { font-style: normal; color: var(--accent); }
 
-        <div class="svc-row reveal" data-svc="03">
-          <div class="svc-meta">
-            <span class="svc-num">03</span>
-            <span class="svc-cat">Package</span>
-          </div>
-          <div class="svc-name">
-            <h3>Package Design</h3>
-          </div>
-          <div class="svc-tags">
-            <span>Gift Set</span><span>Premium Box</span><span>Eco Package</span><span>Limited Edition</span>
-          </div>
-          <div class="svc-arrow">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
-          </div>
-        </div>
+/* ── BUTTONS ── */
+.btn-primary, .btn-ghost, .btn-submit {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 15px 30px; border-radius: 100px;
+  font-size: 14px; font-weight: 600; letter-spacing: .04em;
+  text-transform: uppercase; transition: all .35s var(--ease);
+  font-family: var(--font-en);
+  position: relative; overflow: hidden;
+}
+.btn-primary svg, .btn-ghost svg, .btn-submit svg { width: 18px; height: 18px; flex-shrink: 0; transition: transform .35s var(--ease); }
+.btn-primary:hover svg, .btn-ghost:hover svg, .btn-submit:hover svg { transform: translate(4px,-4px); }
 
-        <div class="svc-row reveal" data-svc="04">
-          <div class="svc-meta">
-            <span class="svc-num">04</span>
-            <span class="svc-cat">Activation</span>
-          </div>
-          <div class="svc-name">
-            <h3>Brand Activation</h3>
-          </div>
-          <div class="svc-tags">
-            <span>Campaign</span><span>Pop-Up Store</span><span>Event Kit</span><span>VM Guide</span>
-          </div>
-          <div class="svc-arrow">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
-          </div>
-        </div>
+.btn-primary {
+  background: var(--fg); color: var(--bg);
+}
+.btn-primary::after {
+  content: ''; position: absolute; inset: 0; background: var(--accent);
+  transform: scaleX(0); transform-origin: right;
+  transition: transform .4s var(--ease); z-index: 0;
+}
+.btn-primary:hover::after { transform: scaleX(1); transform-origin: left; }
+.btn-primary span, .btn-primary svg { position: relative; z-index: 1; }
+.btn-primary:hover { color: #000; }
 
-        <div class="svc-row reveal" data-svc="05">
-          <div class="svc-meta">
-            <span class="svc-num">05</span>
-            <span class="svc-cat">Structural</span>
-          </div>
-          <div class="svc-name">
-            <h3>Structural Design</h3>
-          </div>
-          <div class="svc-tags">
-            <span>Die-cut</span><span>Corrugated</span><span>Acrylic</span><span>Metal Frame</span>
-          </div>
-          <div class="svc-arrow">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
-          </div>
-        </div>
+.btn-ghost {
+  background: transparent; color: var(--fg);
+  border: 1.5px solid var(--border);
+}
+.btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
 
-      </div>
-    </div>
-  </section>
+.btn-submit {
+  background: var(--accent); color: #000;
+  border: none; width: 100%; justify-content: center;
+  font-size: 15px;
+}
+.btn-submit:hover { background: var(--accent-dk); transform: translateY(-2px); box-shadow: 0 12px 32px rgba(255,107,43,.3); }
 
-  <!-- ═══════════════════════════════════
-       WORK
-  ═══════════════════════════════════ -->
-  <section class="work section-pad" id="work">
-    <div class="wrap">
+/* ════════════════════════════
+   HERO
+════════════════════════════ */
+.hero {
+  min-height: 100vh;
+  display: flex; align-items: flex-end;
+  position: relative; overflow: hidden;
+  padding-bottom: 80px;
+}
 
-      <div class="sec-head reveal">
-        <div class="section-num">03</div>
-        <div class="section-label">Work</div>
-        <h2 class="sec-title">Selected <em>Projects</em></h2>
-        <div class="work-filter reveal">
-          <button class="wf-btn active" data-f="all">All</button>
-          <button class="wf-btn" data-f="posm">POSM</button>
-          <button class="wf-btn" data-f="display">Display</button>
-          <button class="wf-btn" data-f="package">Package</button>
-        </div>
-      </div>
+/* 배경 그리드 라인 */
+.hero-grid-lines {
+  position: absolute; inset: 0;
+  display: flex; justify-content: space-between;
+  padding: 0 60px; pointer-events: none; z-index: 0;
+}
+.hero-grid-lines span {
+  width: 1px; height: 100%;
+  background: var(--border);
+}
 
-    </div>
+.hero-inner {
+  position: relative; z-index: 2;
+  max-width: 1320px; margin: 0 auto; padding: 0 60px;
+  width: 100%; padding-top: 120px;
+}
 
-    <!-- 풀블리드 그리드 -->
-    <div class="work-grid" id="workGrid">
+/* 태그라인 */
+.hero-tag {
+  display: flex; align-items: center; gap: 12px;
+  font-size: 12px; letter-spacing: .1em;
+  color: var(--mid); text-transform: uppercase;
+  font-family: var(--font-en);
+  margin-bottom: 48px;
+}
+.tag-pill {
+  background: var(--accent); color: #000;
+  padding: 5px 14px; border-radius: 100px;
+  font-weight: 700; font-size: 11px;
+  font-family: var(--font-en);
+}
+.tag-sep { color: var(--border); }
 
-      <article class="wk-item wk-lg reveal" data-cat="posm">
-        <div class="wk-img wk-g1">
-          <div class="wk-over">
-            <span class="wk-tag">POSM · 2024</span>
-            <h3>Project A — Floor Stand Display</h3>
-          </div>
-          <div class="wk-icon">&#9632;</div>
-        </div>
-      </article>
+/* 초대형 타이틀 */
+.hero-title {
+  display: flex; flex-direction: column;
+  margin-bottom: 60px;
+  line-height: .92;
+}
+/* 히어로 타이틀 라인 — overflow 해제 */
+.ht-line { 
+  display: block; 
+  overflow: visible; /* ✅ 실제 값 변경 */
+}
+/* 히어로 섹션 — overflow 해제 */
+.hero {
+  min-height: 100vh;
+  display: flex; align-items: flex-end;
+  position: relative; 
+  overflow: visible;  /* hidden → visible */
+  padding-bottom: 80px;
+}
+/* 도트 SVG 보호 */
+.ht-dot-svg {
+  width: clamp(32px, 4vw, 64px);
+  height: clamp(32px, 4vw, 64px);
+  flex-shrink: 0;
+  overflow: visible;  /* 추가 */
+  animation: rotateDot 8s linear infinite;
+}
+/* 그리드 라인만 별도로 클리핑 */
+.hero-grid-lines {
+  position: absolute; inset: 0;
+  overflow: hidden;  /* 여기에만 hidden 유지 */
+  pointer-events: none; z-index: 0;
+}
+.ht-outline {
+  display: block;
+  font-size: clamp(72px, 13vw, 200px);
+  font-weight: 700; letter-spacing: -.04em;
+  font-family: var(--font-title);
+  /* stroke only — foundfounded 스타일 */
+  -webkit-text-stroke: 2px var(--fg);
+  color: transparent;
+  line-height: .92;
+  transition: -webkit-text-stroke-color .5s;
+}
+.ht-fill {
+  display: block;
+  font-size: clamp(72px, 13vw, 200px);
+  font-weight: 700;
+  letter-spacing: -.04em;
+  font-family: var(--font-title);
+  color: var(--fg);
+  line-height: 1;
+}
 
-      <article class="wk-item reveal" data-cat="display">
-        <div class="wk-img wk-g2">
-          <div class="wk-over">
-            <span class="wk-tag">Display · 2024</span>
-            <h3>Project B — Glorifier Display</h3>
-          </div>
-          <div class="wk-icon">&#9670;</div>
-        </div>
-      </article>
+.ht-highlight {
+  display: inline;
+  background: var(--accent);
+  color: #000 !important;
+  
+  /* ✅ 폰트 크기 명시적으로 동일하게 */
+  font-size: 1em;              /* 부모와 동일 */
+  font-weight: 700;
+  font-family: var(--font-title);
+  letter-spacing: -.04em;
+  
+  padding: 0 10px;
+  line-height: 1;
+  vertical-align: baseline;   /* ✅ 기준선 맞추기 */
+  
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+  
+  /* ✅ 핵심 — 폰트 내부 여백 제거 */
+  position: relative;
+  vertical-align: 0.08em;     /* 살짝 올려서 하단 여백 제거 */
+}
+.ht-highlight::selection {
+  background: #C8F73A;
+  color: #000;
+}
+.ht-accent {
+  display: flex; align-items: center; gap: 20px;
+}
+.ht-dot-svg {
+  width: clamp(32px, 4vw, 64px);
+  height: clamp(32px, 4vw, 64px);
+  flex-shrink: 0;
+  animation: rotateDot 8s linear infinite;
+}
+@keyframes rotateDot { to { transform: rotate(360deg); } }
 
-      <article class="wk-item reveal" data-cat="package">
-        <div class="wk-img wk-g3">
-          <div class="wk-over">
-            <span class="wk-tag">Package · 2024</span>
-            <h3>Project C — Premium Gift Set</h3>
-          </div>
-          <div class="wk-icon">&#9679;</div>
-        </div>
-      </article>
+/* 하단 CTA */
+.hero-bottom {
+  display: flex; align-items: center; gap: 48px;
+  flex-wrap: wrap;
+}
+.hero-desc {
+  font-size: 15px; line-height: 1.8; color: var(--mid);
+  max-width: 340px;
+  font-family: var(--font-kr);
+}
 
-      <article class="wk-item reveal" data-cat="posm">
-        <div class="wk-img wk-g4">
-          <div class="wk-over">
-            <span class="wk-tag">POSM · 2023</span>
-            <h3>Project D — Shelf Display System</h3>
-          </div>
-          <div class="wk-icon">&#9651;</div>
-        </div>
-      </article>
+/* 스크롤 인디케이터 */
+.hero-scroll-ind {
+  position: absolute; bottom: 40px; left: 60px;
+  display: flex; align-items: center; gap: 12px;
+  font-size: 11px; letter-spacing: .14em;
+  color: var(--mid); text-transform: uppercase;
+  font-family: var(--font-en);
+}
+.scroll-track {
+  width: 60px; height: 1px; background: var(--border);
+  position: relative; overflow: hidden;
+}
+.scroll-thumb {
+  position: absolute; top: 0; left: 0;
+  width: 30px; height: 100%; background: var(--accent);
+  animation: scrollAnim 2s var(--ease) infinite;
+}
+@keyframes scrollAnim {
+  0%   { transform: translateX(-100%); }
+  50%  { transform: translateX(50%); }
+  100% { transform: translateX(200%); }
+}
 
-      <article class="wk-item wk-lg reveal" data-cat="display">
-        <div class="wk-img wk-g5">
-          <div class="wk-over">
-            <span class="wk-tag">Display · 2023</span>
-            <h3>Project E — Brand Pop-Up Space</h3>
-          </div>
-          <div class="wk-icon">&#9632;</div>
-        </div>
-      </article>
+/* 우측 스탯 */
+.hero-float-stat {
+  position: absolute; right: 60px; bottom: 40px;
+  display: flex; gap: 36px;
+}
+.f-stat {
+  text-align: right;
+}
+.f-num {
+  font-size: 36px; font-weight: 700; letter-spacing: -.03em;
+  line-height: 1; color: var(--fg);
+  font-family: var(--font-title);
+}
+.f-unit { font-size: 22px; color: var(--accent); font-weight: 700; font-family: var(--font-title); }
+.f-label {
+  display: block; font-size: 10px; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--mid); margin-top: 4px;
+  font-family: var(--font-en);
+}
 
-      <article class="wk-item reveal" data-cat="package">
-        <div class="wk-img wk-g6">
-          <div class="wk-over">
-            <span class="wk-tag">Package · 2023</span>
-            <h3>Project F — Eco Package Series</h3>
-          </div>
-          <div class="wk-icon">&#9679;</div>
-        </div>
-      </article>
+/* ════════════════════════════
+   MARQUEE
+════════════════════════════ */
+.marquee-band {
+  overflow: hidden;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 20px 0;
+  background: var(--fg);
+}
+.mq-track {
+  display: flex; align-items: center; gap: 28px;
+  width: max-content;
+  animation: mqScroll 28s linear infinite;
+}
+.mq-track span {
+  font-size: 14px; font-weight: 600;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: var(--bg); white-space: nowrap;
+  font-family: var(--font-title);
+  transition: color .3s;
+}
+.mq-dot { color: var(--accent) !important; font-size: 8px !important; }
+.mq-track:hover { animation-play-state: paused; }
+@keyframes mqScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
-    </div>
+/* ════════════════════════════
+   ABOUT
+════════════════════════════ */
+.about { background: var(--bg); }
+.about-top {
+  display: flex; align-items: center; gap: 20px;
+  margin-bottom: 60px;
+}
+.about-body {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
+  align-items: start; margin-bottom: 100px;
+}
+.about-headline {
+  font-size: clamp(44px, 5.5vw, 80px);
+  font-weight: 700; letter-spacing: -.04em; line-height: 1.05;
+  /* 신뢰감 + 단단함: 프리텐다드 */
+  font-family: var(--font-kr);
+}
+.about-headline em { font-style: normal; color: var(--accent); }
+.about-text {
+  font-size: 16px; line-height: 1.9; color: var(--mid);
+  margin-bottom: 20px;
+  font-family: var(--font-kr);
+}
+.about-text strong { color: var(--fg); font-weight: 600; }
+.about-kpi {
+  display: flex; align-items: center; gap: 0;
+  margin-top: 48px;
+  border: 1px solid var(--border); border-radius: var(--r2);
+  padding: 32px 40px; overflow: hidden;
+}
+.kpi-item { flex: 1; text-align: center; }
+.kpi-div { width: 1px; height: 48px; background: var(--border); flex-shrink: 0; }
+.kpi-n {
+  display: block;
+  font-size: 40px; font-weight: 700; letter-spacing: -.03em;
+  color: var(--fg); line-height: 1;
+  font-family: var(--font-title);
+}
+.kpi-n sup { font-size: 18px; color: var(--accent); }
+.kpi-l {
+  display: block; font-size: 11px; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--mid); margin-top: 6px;
+  font-family: var(--font-en);
+}
 
-    <div class="wrap">
-      <div class="work-more reveal">
-        <a href="#contact" class="btn-ghost">
-          <span>프로젝트 문의하기</span>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </a>
-      </div>
-    </div>
-  </section>
+/* About 비주얼 배너 */
+.about-visual {
+  width: 100%; border-radius: var(--r2);
+  background: var(--fg); padding: 60px;
+  overflow: hidden; position: relative;
+}
+.av-inner { position: relative; z-index: 2; }
+.av-bg-text {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+  font-size: clamp(80px, 14vw, 200px);
+  font-weight: 700; letter-spacing: -.05em;
+  color: rgba(255,255,255,.04);
+  white-space: nowrap; pointer-events: none; user-select: none;
+  font-family: var(--font-title);
+  z-index: 1;
+}
+.av-tags {
+  display: flex; flex-wrap: wrap; gap: 12px;
+  position: relative; z-index: 2;
+}
+.av-tags span {
+  font-size: 15px; font-weight: 600; letter-spacing: -.01em;
+  color: var(--bg);
+  font-family: var(--font-kr);
+  border: 1px solid rgba(255,255,255,.15);
+  padding: 12px 24px; border-radius: 100px;
+  transition: all .3s var(--ease);
+}
+.av-tags span:hover { background: var(--accent); color: #000; border-color: var(--accent); }
 
-  <!-- ═══════════════════════════════════
-       CLIENT — KT&G only
-  ═══════════════════════════════════ -->
-  <section class="client section-pad">
-    <div class="wrap">
+/* ════════════════════════════
+   SERVICE  — accordion rows
+════════════════════════════ */
+.service { background: var(--card-bg); }
+.svc-list { display: flex; flex-direction: column; }
+.svc-row {
+  display: grid;
+  grid-template-columns: 100px 1fr auto 56px;
+  align-items: center; gap: 32px;
+  padding: 32px 0;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  transition: padding-left .35s var(--ease), background .3s;
+  border-radius: 0;
+}
+.svc-row:first-child { border-top: 1px solid var(--border); }
+.svc-row:hover { padding-left: 20px; }
+.svc-meta { display: flex; flex-direction: column; gap: 4px; }
+.svc-num { font-size: 11px; font-weight: 700; letter-spacing: .12em; color: var(--mid); font-family: var(--font-en); }
+.svc-cat {
+  font-size: 11px; font-weight: 600; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--accent);
+  font-family: var(--font-en);
+}
+.svc-name h3 {
+  font-size: clamp(20px, 2.5vw, 34px);
+  font-weight: 700; letter-spacing: -.025em;
+  color: var(--fg); transition: color .3s;
+  font-family: var(--font-en);
+}
+.svc-row:hover .svc-name h3 { color: var(--accent); }
+.svc-tags {
+  display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end;
+}
+.svc-tags span {
+  font-size: 11px; letter-spacing: .05em;
+  color: var(--mid); background: var(--bg);
+  border: 1px solid var(--border);
+  padding: 5px 12px; border-radius: 100px;
+  transition: all .3s;
+}
+.svc-row:hover .svc-tags span { border-color: var(--accent); color: var(--accent); background: rgba(255,107,43,.06); }
+.svc-arrow {
+  width: 48px; height: 48px; border-radius: 50%;
+  border: 1.5px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  transition: all .35s var(--ease);
+}
+.svc-arrow svg { width: 20px; height: 20px; color: var(--mid); transition: color .3s; }
+.svc-row:hover .svc-arrow {
+  background: var(--accent); border-color: var(--accent);
+  transform: rotate(45deg);
+}
+.svc-row:hover .svc-arrow svg { color: #000; }
 
-      <div class="sec-head reveal">
-        <div class="section-num">04</div>
-        <div class="section-label">Client</div>
-        <h2 class="sec-title">함께하는 <em>브랜드</em></h2>
-      </div>
+/* ════════════════════════════
+   WORK
+════════════════════════════ */
+.work { background: var(--bg); }
+.work-filter {
+  display: flex; gap: 8px; flex-wrap: wrap;
+  margin-top: 0; flex: 1 0 100%;
+}
+.wf-btn {
+  padding: 7px 18px; border-radius: 100px;
+  font-size: 12px; font-weight: 600; letter-spacing: .06em;
+  text-transform: uppercase; color: var(--mid);
+  border: 1.5px solid var(--border);
+  font-family: var(--font-en);
+  transition: all .3s;
+}
+.wf-btn.active, .wf-btn:hover {
+  background: var(--fg); color: var(--bg);
+  border-color: var(--fg);
+}
+.wf-btn.active { background: var(--accent); color: #000; border-color: var(--accent); }
 
-      <div class="client-showcase reveal">
-        <div class="cs-main">
-          <!-- KT&G 로고 대형 표시 -->
-          <div class="cs-logo-wrap">
-            <svg class="cs-ktg-svg" viewBox="0 0 320 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <!-- KT&G 텍스트 로고 -->
-              <text x="0" y="90" font-family="'Space Grotesk',sans-serif" font-weight="700"
-                    font-size="88" letter-spacing="-2" fill="currentColor">KT&amp;G</text>
-              <rect x="0" y="100" width="320" height="3" fill="#C8F73A" rx="2"/>
-            </svg>
-          </div>
-          <p class="cs-desc">
-            국내 1위 담배·건강기능식품 기업<br>
-            <strong>KT&G</strong>와 함께 다수의 POSM 및 POP 프로젝트를 성공적으로 진행했습니다.
-          </p>
-        </div>
-        <div class="cs-detail">
-          <div class="cs-stat-row">
-            <div class="cs-stat">
-              <span class="cs-sn">100<sup>+</sup></span>
-              <span class="cs-sl">KT&G 프로젝트</span>
-            </div>
-            <div class="cs-stat">
-              <span class="cs-sn">10<sup>+</sup></span>
-              <span class="cs-sl">협업 연수</span>
-            </div>
-          </div>
-          <div class="cs-tags">
-            <span>POSM</span>
-            <span>POP Display</span>
-            <span>Shelf System</span>
-            <span>Brand Activation</span>
-            <span>Package Design</span>
-          </div>
-        </div>
-      </div>
+/* Masonry-ish grid */
+.work-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 300px;
+  gap: 12px;
+  padding: 0 60px;
+  max-width: 1320px; margin: 0 auto 60px;
+}
+.wk-item { border-radius: var(--r2); overflow: hidden; }
+.wk-lg   { grid-column: span 2; }
+.wk-img  {
+  width: 100%; height: 100%; position: relative;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden; cursor: pointer;
+}
+.wk-g1 { background: linear-gradient(135deg, #0f0c29, #302b63, #24243e); }
+.wk-g2 { background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460); }
+.wk-g3 { background: linear-gradient(135deg, #2d1b69, #5e2d8c); }
+.wk-g4 { background: linear-gradient(135deg, #0d324d, #7f5a83); }
+.wk-g5 { background: linear-gradient(135deg, #3a1c71, #d76d77, #ffaf7b); }
+.wk-g6 { background: linear-gradient(135deg, #134e5e, #71b280); }
 
-      <!-- 그 외 파트너는 수치만 표기 -->
-      <div class="partner-note reveal">
-        <p>그 외 <strong>다수의 글로벌 · 국내 브랜드</strong>와 협업 중 — 기밀 유지 계약에 따라 공개 불가</p>
-      </div>
+.wk-over {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,.9) 0%, transparent 55%);
+  padding: 28px;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  opacity: 0; transition: opacity .4s var(--ease);
+}
+.wk-item:hover .wk-over { opacity: 1; }
+.wk-tag {
+  font-size: 10px; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--accent);
+  border: 1px solid rgba(255,107,43,.4);
+  padding: 4px 12px; border-radius: 100px;
+  display: inline-block; width: fit-content; margin-bottom: 10px;
+  background: rgba(255,107,43,.1);
+  font-family: var(--font-en);
+}
+.wk-over h3 {
+  font-size: 17px; font-weight: 600; color: #fff;
+  letter-spacing: -.01em;
+  font-family: var(--font-en);
+}
+.wk-icon {
+  font-size: 56px; color: rgba(255,255,255,.08);
+  pointer-events: none; user-select: none;
+}
+.wk-item.hidden { display: none; }
+.work-more { padding: 20px 0; }
 
-    </div>
-  </section>
+/* ════════════════════════════
+   CLIENT
+════════════════════════════ */
+.client { background: var(--fg); color: var(--bg); }
+.client .section-num { color: rgba(255,255,255,.3); }
+.client .sec-title { color: var(--bg); }
+.client .sec-title em { color: var(--accent); }
 
-  <!-- ═══════════════════════════════════
-       PROCESS
-  ═══════════════════════════════════ -->
-  <section class="process section-pad">
-    <div class="wrap">
+.client-showcase {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 80px; align-items: center;
+  padding: 60px 0 80px;
+  border-top: 1px solid rgba(255,255,255,.1);
+  border-bottom: 1px solid rgba(255,255,255,.1);
+}
+.cs-logo-wrap { margin-bottom: 24px; }
+.cs-ktg-svg {
+  width: min(320px, 80%);
+  color: var(--bg);
+  filter: drop-shadow(0 0 30px rgba(255,107,43,.15));
+}
+.cs-desc {
+  font-size: 16px; line-height: 1.8;
+  color: rgba(255,255,255,.5);
+  font-family: var(--font-kr);
+}
+.cs-desc strong { color: var(--bg); }
+.cs-stat-row {
+  display: flex; gap: 40px; margin-bottom: 32px;
+}
+.cs-stat {}
+.cs-sn {
+  display: block;
+  font-size: 48px; font-weight: 700; letter-spacing: -.03em;
+  color: var(--bg); line-height: 1;
+  font-family: var(--font-title);
+}
+.cs-sn sup { font-size: 20px; color: var(--accent); }
+.cs-sl {
+  font-size: 12px; letter-spacing: .08em;
+  text-transform: uppercase; color: rgba(255,255,255,.4);
+  margin-top: 4px; display: block;
+  font-family: var(--font-en);
+}
+.cs-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.cs-tags span {
+  font-size: 12px; font-weight: 500; letter-spacing: .04em;
+  color: rgba(255,255,255,.5);
+  border: 1px solid rgba(255,255,255,.12);
+  padding: 6px 16px; border-radius: 100px;
+  font-family: var(--font-en);
+  transition: all .3s;
+}
+.cs-tags span:hover { border-color: var(--accent); color: var(--accent); }
 
-      <div class="sec-head reveal">
-        <div class="section-num">05</div>
-        <div class="section-label">Process</div>
-        <h2 class="sec-title">How We <em>Work</em></h2>
-      </div>
+.partner-note {
+  margin-top: 48px;
+  padding: 24px 32px;
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: var(--r);
+  font-size: 14px; color: rgba(255,255,255,.35);
+  line-height: 1.7;
+  font-family: var(--font-kr);
+}
+.partner-note strong { color: rgba(255,255,255,.6); }
 
-      <div class="proc-list">
-        <div class="proc-item reveal" style="--d:0s">
-          <div class="pi-num">01</div>
-          <h3 class="pi-title">Briefing</h3>
-          <p class="pi-desc">브랜드 목표 파악, 시장 분석, 타겟 리서치</p>
-        </div>
-        <div class="proc-sep reveal" style="--d:.05s">→</div>
-        <div class="proc-item reveal" style="--d:.1s">
-          <div class="pi-num">02</div>
-          <h3 class="pi-title">Concept</h3>
-          <p class="pi-desc">크리에이티브 컨셉 개발, 무드보드 제작</p>
-        </div>
-        <div class="proc-sep reveal" style="--d:.15s">→</div>
-        <div class="proc-item reveal" style="--d:.2s">
-          <div class="pi-num">03</div>
-          <h3 class="pi-title">Design</h3>
-          <p class="pi-desc">3D 렌더링, 구조 설계, 소재 선정</p>
-        </div>
-        <div class="proc-sep reveal" style="--d:.25s">→</div>
-        <div class="proc-item reveal" style="--d:.3s">
-          <div class="pi-num">04</div>
-          <h3 class="pi-title">Production</h3>
-          <p class="pi-desc">프로토타입, 품질 테스트, 양산 관리</p>
-        </div>
-        <div class="proc-sep reveal" style="--d:.35s">→</div>
-        <div class="proc-item reveal" style="--d:.4s">
-          <div class="pi-num">05</div>
-          <h3 class="pi-title">Delivery</h3>
-          <p class="pi-desc">현장 설치, 셋업, 사후 관리</p>
-        </div>
-      </div>
+/* ════════════════════════════
+   PROCESS
+════════════════════════════ */
+.process { background: var(--card-bg); }
+.proc-list {
+  display: flex; align-items: flex-start; gap: 0;
+}
+.proc-item {
+  flex: 1;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--r2);
+  padding: 36px 28px;
+  transition: transform .4s var(--ease), box-shadow .4s;
+}
+.proc-item:hover { transform: translateY(-8px); box-shadow: 0 24px 48px rgba(0,0,0,.08); }
+.proc-sep {
+  flex-shrink: 0; padding: 0 12px; margin-top: 48px;
+  font-size: 24px; color: var(--mid); font-weight: 300;
+}
+.pi-num {
+  font-size: 44px; font-weight: 700; letter-spacing: -.03em;
+  color: var(--accent); line-height: 1; margin-bottom: 20px;
+  font-family: var(--font-title);
+}
+.pi-title {
+  font-size: 18px; font-weight: 700; letter-spacing: -.01em;
+  color: var(--fg); margin-bottom: 12px;
+  font-family: var(--font-kr);
+}
+.pi-desc { font-size: 13px; line-height: 1.8; color: var(--mid); font-family: var(--font-kr); }
 
-    </div>
-  </section>
+/* ════════════════════════════
+   CONTACT
+════════════════════════════ */
+.contact { background: var(--bg); }
+.contact-hero { margin-bottom: 80px; }
+.contact-big {
+  font-size: clamp(60px, 10vw, 160px);
+  font-weight: 700; letter-spacing: -.05em; line-height: .9;
+  position: relative; display: inline-block;
+  /* 영문 프리미엄: Playfair Display */
+  font-family: var(--font-luxury);
+}
+.contact-big em { font-style: italic; color: var(--accent); }
+.contact-dot-svg {
+  position: absolute; top: 0; right: -60px;
+  width: clamp(32px, 4vw, 56px);
+  animation: rotateDot 6s linear infinite;
+}
+.contact-body {
+  display: grid; grid-template-columns: 1fr 1.4fr; gap: 80px;
+  align-items: start;
+}
+.ci-link {
+  display: flex; flex-direction: column; gap: 6px;
+  padding: 24px 0;
+  border-bottom: 1px solid var(--border);
+  transition: padding-left .3s var(--ease);
+}
+.ci-link:hover { padding-left: 8px; }
+.ci-label {
+  font-size: 10px; font-weight: 700; letter-spacing: .16em;
+  text-transform: uppercase; color: var(--mid);
+  font-family: var(--font-en);
+}
+.ci-val {
+  font-size: 17px; font-weight: 500; color: var(--fg);
+  font-family: var(--font-kr);
+  transition: color .3s;
+}
+a.ci-link:hover .ci-val { color: var(--accent); }
 
-  <!-- ═══════════════════════════════════
-       CONTACT
-  ═══════════════════════════════════ -->
-  <section class="contact section-pad" id="contact">
-    <div class="wrap">
+/* Form */
+.contact-form {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--r2);
+  padding: 48px;
+}
+.cf-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.cf-group { margin-bottom: 24px; }
+.cf-group label {
+  display: block; margin-bottom: 8px;
+  font-size: 11px; font-weight: 700; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--mid);
+  font-family: var(--font-en);
+}
+.cf-group input, .cf-group select, .cf-group textarea {
+  width: 100%;
+  background: var(--bg);
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  padding: 13px 16px;
+  font-size: 14px; font-family: var(--font-kr);
+  color: var(--fg); outline: none;
+  transition: border-color .3s;
+  -webkit-appearance: none; appearance: none;
+}
+.cf-group input::placeholder, .cf-group textarea::placeholder { color: var(--mid); opacity: .5; }
+.cf-group input:focus, .cf-group select:focus, .cf-group textarea:focus {
+  border-color: var(--accent);
+}
+.cf-group textarea { resize: vertical; min-height: 110px; }
 
-      <div class="sec-head reveal">
-        <div class="section-num">06</div>
-        <div class="section-label">Contact</div>
-      </div>
+/* ════════════════════════════
+   FOOTER
+════════════════════════════ */
+.footer {
+  background: var(--fg); color: var(--bg);
+  padding: 80px 0 40px;
+  border-top: 1px solid var(--border);
+}
+.footer-top {
+  display: flex; align-items: flex-start; gap: 24px;
+  flex-direction: column; margin-bottom: 60px;
+}
+.ft-logo-svg { width: 120px; color: var(--bg); margin-bottom: 12px; }
+.footer-top p { font-size: 14px; line-height: 1.8; color: rgba(255,255,255,.4); font-family: var(--font-kr); }
+.footer-mid {
+  display: flex; gap: 80px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid rgba(255,255,255,.08);
+  margin-bottom: 32px;
+}
+.fm-col h4 {
+  font-size: 11px; font-weight: 700; letter-spacing: .14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.3); margin-bottom: 20px;
+  font-family: var(--font-en);
+}
+.fm-col a {
+  display: block; font-size: 14px;
+  color: rgba(255,255,255,.55); margin-bottom: 12px;
+  font-family: var(--font-kr);
+  transition: color .3s;
+}
+.fm-col a:hover { color: var(--accent); }
+.footer-bot {
+  display: flex; justify-content: space-between;
+  font-size: 12px; letter-spacing: .04em;
+  color: rgba(255,255,255,.25);
+  font-family: var(--font-en);
+}
 
-      <div class="contact-hero reveal">
-        <h2 class="contact-big">
-          Let's<br><em>Work</em><br>Together
-          <svg class="contact-dot-svg" viewBox="0 0 32 32"><circle cx="16" cy="16" r="16" fill="#C8F73A"/></svg>
-        </h2>
-      </div>
+/* ── TOAST ── */
+.toast {
+  position: fixed; bottom: 28px; right: 28px; z-index: 9999;
+  background: var(--fg); color: var(--bg);
+  border: 1px solid var(--accent);
+  border-radius: var(--r);
+  padding: 14px 22px; font-size: 14px; font-weight: 500;
+  display: flex; align-items: center; gap: 10px;
+  font-family: var(--font-kr);
+  transform: translateY(80px) scale(.95); opacity: 0;
+  transition: all .5s cubic-bezier(.34,1.56,.64,1);
+  pointer-events: none;
+}
+.toast.show { transform: translateY(0) scale(1); opacity: 1; }
+.toast span { color: var(--accent); font-size: 18px; }
 
-      <div class="contact-body">
-        <div class="contact-info reveal">
-          <a href="mailto:hello@posi.co.kr" class="ci-link">
-            <span class="ci-label">Email</span>
-            <span class="ci-val">hello@posi.co.kr →</span>
-          </a>
-          <a href="tel:02-XXXXXXXX" class="ci-link">
-            <span class="ci-label">Phone</span>
-            <span class="ci-val">02 · XXX · XXXX →</span>
-          </a>
-          <div class="ci-link">
-            <span class="ci-label">Location</span>
-            <span class="ci-val">Seoul, Korea</span>
-          </div>
-        </div>
-
-        <form class="contact-form reveal" id="contactForm" novalidate>
-          <div class="cf-row">
-            <div class="cf-group">
-              <label>이름</label>
-              <input type="text" placeholder="홍길동" required/>
-            </div>
-            <div class="cf-group">
-              <label>회사</label>
-              <input type="text" placeholder="회사명"/>
-            </div>
-          </div>
-          <div class="cf-group">
-            <label>이메일</label>
-            <input type="email" placeholder="email@company.com" required/>
-          </div>
-          <div class="cf-group">
-            <label>서비스</label>
-            <select>
-              <option value="">선택</option>
-              <option>POSM / POP</option>
-              <option>Display Design</option>
-              <option>Package Design</option>
-              <option>Brand Activation</option>
-              <option>기타</option>
-            </select>
-          </div>
-          <div class="cf-group">
-            <label>메시지</label>
-            <textarea rows="4" placeholder="프로젝트를 소개해주세요..." required></textarea>
-          </div>
-          <button type="submit" class="btn-submit">
-            <span>보내기</span>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </button>
-        </form>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ── FOOTER ── -->
-  <footer class="footer">
-    <div class="wrap">
-      <div class="footer-top">
-        <svg class="ft-logo-svg" viewBox="0 0 140 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <text x="0" y="38" font-family="'Space Grotesk',sans-serif" font-weight="700"
-                font-size="40" letter-spacing="-2" fill="currentColor">POSI</text>
-          <circle cx="133" cy="8" r="7" fill="#C8F73A"/>
-        </svg>
-        <p>Point of Sale Innovation<br>브랜드의 가치를 경험으로</p>
-      </div>
-      <div class="footer-mid">
-        <div class="fm-col">
-          <h4>Service</h4>
-          <a href="#">POSM / POP</a>
-          <a href="#">Display Design</a>
-          <a href="#">Package Design</a>
-          <a href="#">Brand Activation</a>
-        </div>
-        <div class="fm-col">
-          <h4>Company</h4>
-          <a href="#about">About</a>
-          <a href="#work">Portfolio</a>
-          <a href="#contact">Contact</a>
-        </div>
-        <div class="fm-col">
-          <h4>Follow</h4>
-          <a href="#">Instagram</a>
-          <a href="#">LinkedIn</a>
-          <a href="#">Behance</a>
-        </div>
-      </div>
-      <div class="footer-bot">
-        <span>© 2025 POSI Co., Ltd. All Rights Reserved.</span>
-        <span>Seoul, Korea</span>
-      </div>
-    </div>
-  </footer>
-
-  <!-- Toast -->
-  <div class="toast" id="toast">
-    <span>✓</span> 메시지가 전송되었습니다.
-  </div>
-
-  <script src="js/main.js"></script>
-</body>
-</html>
+/* ════════════════════════════
+   RESPONSIVE
+════════════════════════════ */
+@media (max-width: 1100px) {
+  .about-body { grid-template-columns: 1fr; gap: 48px; }
+  .contact-body { grid-template-columns: 1fr; gap: 60px; }
+  .client-showcase { grid-template-columns: 1fr; gap: 48px; }
+  .svc-row { grid-template-columns: 80px 1fr 56px; }
+  .svc-tags { display: none; }
+  .proc-list { flex-wrap: wrap; gap: 16px; }
+  .proc-item { flex: 0 0 calc(50% - 8px); }
+  .proc-sep { display: none; }
+}
+@media (max-width: 768px) {
+  .wrap { padding: 0 24px; }
+  .section-pad { padding: 80px 0; }
+  .nav { padding: 20px 24px; }
+  .nav.stuck { padding: 14px 24px; }
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+  .hero-inner { padding: 100px 24px 40px; }
+  .hero-grid-lines { padding: 0 24px; }
+  .ht-outline, .ht-fill { font-size: clamp(52px, 16vw, 96px); }
+  .hero-float-stat { display: none; }
+  .hero-scroll-ind { left: 24px; }
+  .hero-bottom { flex-direction: column; align-items: flex-start; gap: 24px; }
+  .hero-bottom .btn-primary { width: 100%; justify-content: center; }
+  .work-grid { grid-template-columns: 1fr; grid-auto-rows: 240px; padding: 0 24px; }
+  .wk-lg { grid-column: span 1; }
+  .contact-form { padding: 28px 20px; }
+  .cf-row { grid-template-columns: 1fr; }
+  .footer-mid { flex-wrap: wrap; gap: 40px; }
+  .footer-bot { flex-direction: column; gap: 6px; }
+  .proc-item { flex: 0 0 100%; }
+  .about-kpi { padding: 24px; }
+  .kpi-n { font-size: 30px; }
+  .mob-overlay { padding: 100px 28px 48px; }
+  .cursor { display: none; }
+  body { cursor: auto; }
+  button { cursor: pointer; }
+  a { cursor: pointer; }
+}
+@media (max-width: 480px) {
+  .hero-tag { flex-wrap: wrap; }
+  .sec-head { gap: 12px 20px; }
+  .contact-big { font-size: clamp(52px, 14vw, 96px); }
+  .contact-dot-svg { display: none; }
+}

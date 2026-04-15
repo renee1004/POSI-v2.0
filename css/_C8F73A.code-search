@@ -1,0 +1,25 @@
+# Query: #C8F73A
+# ContextLines: 1
+
+9 results - 4 files
+
+index.html:
+   29:         <circle class="l-dot" cx="192" cy="12" r="10" fill="#C8F73A"/>
+   42:         <circle class="logo-accent-dot" cx="133" cy="8" r="7" fill="#C8F73A"/>
+  108:             <svg class="ht-dot-svg" viewBox="0 0 28 28"><circle cx="14" cy="14" r="14" fill="#C8F73A"/></svg>
+  447:               <rect x="0" y="100" width="320" height="3" fill="#C8F73A" rx="2"/>
+  545:           <svg class="contact-dot-svg" viewBox="0 0 32 32"><circle cx="16" cy="16" r="16" fill="#C8F73A"/></svg>
+  612:           <circle cx="133" cy="8" r="7" fill="#C8F73A"/>
+
+README.md:
+  11: | **컬러** | Light `#F5F4F0` / Dark `#0A0A0A` + Accent `#C8F73A` |
+
+css/style.css:
+  13  :root {
+  14  :root {
+  15:   --accent:   #C8F73A;
+  15    --accent-dk:#9bbf20;
+  16    --accent-dk:#9bbf20;
+
+js/main.js:
+  242:   'background:#C8F73A;color:#000;font-weight:700;padding:5px 12px;border-radius:4px;font-size:13px');

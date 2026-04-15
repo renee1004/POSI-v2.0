@@ -12,8 +12,8 @@
 
 /* ── TOKENS ── */
 :root {
-  --accent:   #C8F73A;
-  --accent-dk:#9bbf20;
+  --accent:   #FF6B2B;
+  --accent-dk:#686868;
 
   /* Light theme (default) */
   --bg:       #F5F4F0;
@@ -52,11 +52,28 @@
 /* Hero — 베이지 배경, 타이틀/본문 블랙 */
 .hero { color: #000; }
 .ht-outline { -webkit-text-stroke-color: #000 !important; }
-.ht-fill    { color: #000 !important; }
+.hero .ht-fill { color: #000 !important; }
+.hero .ht-fill .ht-highlight { color: #000 !important; }
 .hero-desc  { color: #3a3a3a !important; }
 .hero-tag   { color: #3a3a3a !important; }
 .f-num      { color: #000 !important; }
 .hero-scroll-ind { color: #3a3a3a !important; }
+/* 기본 상태 — 오렌지 배경 고정 */
+.ht-highlight {
+  background: var(--accent);
+  color: #000;
+  padding: 0.08px 8px;         /* 상하 2px만 */
+  display: inline;          /* inline으로 텍스트에 딱 붙게 */
+  line-height: 0.1;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+/* 드래그 선택 시 — 라임색으로 */
+.ht-highlight::selection {
+  background: #C8F73A;              /* 라임 */
+  color: #000;
+}
 
 /* About — 베이지 배경 */
 .about { color: #000; }
@@ -158,7 +175,7 @@ img { max-width: 100%; display: block; }
   mix-blend-mode: multiply;
 }
 [data-theme="dark"] .cursor { mix-blend-mode: screen; }
-.cursor.big { width: 60px; height: 60px; background: rgba(200,247,58,.3); }
+.cursor.big { width: 60px; height: 60px; background: rgba(255, 107, 43, 0.2); }
 .cursor.click { width: 8px; height: 8px; }
 
 /* ── LOADER ── */
@@ -208,7 +225,7 @@ img { max-width: 100%; display: block; }
   color: var(--fg);
   transition: color .3s;
 }
-.logo-accent-dot { filter: drop-shadow(0 0 8px rgba(200,247,58,.6)); }
+.logo-accent-dot { filter: drop-shadow(0 0 8px rgba(255, 107, 43, 0.2)); }
 .nav-links {
   display: flex; gap: 40px; align-items: center;
 }
@@ -238,7 +255,7 @@ img { max-width: 100%; display: block; }
   transition: border-color .3s, background .3s;
   position: relative; overflow: hidden;
 }
-.theme-toggle:hover { border-color: var(--accent) !important; background: rgba(200,247,58,.08); }
+.theme-toggle:hover { border-color: var(--accent) !important; background: rgba(255,107,43,.08); }
 .t-icon { position: absolute; font-size: 15px; transition: opacity .3s, transform .3s; }
 .t-sun  { opacity: 1; transform: translateY(0); }
 .t-moon { opacity: 0; transform: translateY(10px); }
@@ -314,8 +331,8 @@ img { max-width: 100%; display: block; }
   letter-spacing: .18em; text-transform: uppercase;
   color: var(--accent);
   font-family: var(--font-en);
-  background: rgba(200,247,58,.12);
-  border: 1px solid rgba(200,247,58,.35);
+  background: rgba(255,107,43,.12);
+  border: 1px solid rgba(255,107,43,.35);
   padding: 5px 14px; border-radius: 100px;
   display: inline-block;
 }
@@ -368,7 +385,7 @@ img { max-width: 100%; display: block; }
   border: none; width: 100%; justify-content: center;
   font-size: 15px;
 }
-.btn-submit:hover { background: var(--accent-dk); transform: translateY(-2px); box-shadow: 0 12px 32px rgba(200,247,58,.3); }
+.btn-submit:hover { background: var(--accent-dk); transform: translateY(-2px); box-shadow: 0 12px 32px rgba(255,107,43,.3); }
 
 /* ════════════════════════════
    HERO
@@ -419,7 +436,33 @@ img { max-width: 100%; display: block; }
   margin-bottom: 60px;
   line-height: .92;
 }
-.ht-line { display: block; overflow: hidden; }
+/* 히어로 타이틀 라인 — overflow 해제 */
+.ht-line { 
+  display: block; 
+  overflow: visible; /* ✅ 실제 값 변경 */
+}
+/* 히어로 섹션 — overflow 해제 */
+.hero {
+  min-height: 100vh;
+  display: flex; align-items: flex-end;
+  position: relative; 
+  overflow: visible;  /* hidden → visible */
+  padding-bottom: 80px;
+}
+/* 도트 SVG 보호 */
+.ht-dot-svg {
+  width: clamp(32px, 4vw, 64px);
+  height: clamp(32px, 4vw, 64px);
+  flex-shrink: 0;
+  overflow: visible;  /* 추가 */
+  animation: rotateDot 8s linear infinite;
+}
+/* 그리드 라인만 별도로 클리핑 */
+.hero-grid-lines {
+  position: absolute; inset: 0;
+  overflow: hidden;  /* 여기에만 hidden 유지 */
+  pointer-events: none; z-index: 0;
+}
 .ht-outline {
   display: block;
   font-size: clamp(72px, 13vw, 200px);
@@ -434,10 +477,39 @@ img { max-width: 100%; display: block; }
 .ht-fill {
   display: block;
   font-size: clamp(72px, 13vw, 200px);
-  font-weight: 700; letter-spacing: -.04em;
+  font-weight: 700;
+  letter-spacing: -.04em;
   font-family: var(--font-title);
   color: var(--fg);
-  line-height: .92;
+  line-height: 1;
+}
+
+.ht-highlight {
+  display: inline;
+  background: var(--accent);
+  color: #000 !important;
+  
+  /* ✅ 폰트 크기 명시적으로 동일하게 */
+  font-size: 1em;              /* 부모와 동일 */
+  font-weight: 700;
+  font-family: var(--font-title);
+  letter-spacing: -.04em;
+  
+  padding: 0 10px;
+  line-height: 1;
+  vertical-align: baseline;   /* ✅ 기준선 맞추기 */
+  
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+  
+  /* ✅ 핵심 — 폰트 내부 여백 제거 */
+  position: relative;
+  vertical-align: 0.08em;     /* 살짝 올려서 하단 여백 제거 */
+}
+.ht-highlight::selection {
+  background: #C8F73A;
+  color: #000;
 }
 .ht-accent {
   display: flex; align-items: center; gap: 20px;
@@ -648,7 +720,7 @@ img { max-width: 100%; display: block; }
   padding: 5px 12px; border-radius: 100px;
   transition: all .3s;
 }
-.svc-row:hover .svc-tags span { border-color: var(--accent); color: var(--accent); background: rgba(200,247,58,.06); }
+.svc-row:hover .svc-tags span { border-color: var(--accent); color: var(--accent); background: rgba(255,107,43,.06); }
 .svc-arrow {
   width: 48px; height: 48px; border-radius: 50%;
   border: 1.5px solid var(--border);
@@ -719,10 +791,10 @@ img { max-width: 100%; display: block; }
 .wk-tag {
   font-size: 10px; letter-spacing: .14em;
   text-transform: uppercase; color: var(--accent);
-  border: 1px solid rgba(200,247,58,.4);
+  border: 1px solid rgba(255,107,43,.4);
   padding: 4px 12px; border-radius: 100px;
   display: inline-block; width: fit-content; margin-bottom: 10px;
-  background: rgba(200,247,58,.1);
+  background: rgba(255,107,43,.1);
   font-family: var(--font-en);
 }
 .wk-over h3 {
@@ -756,7 +828,7 @@ img { max-width: 100%; display: block; }
 .cs-ktg-svg {
   width: min(320px, 80%);
   color: var(--bg);
-  filter: drop-shadow(0 0 30px rgba(200,247,58,.15));
+  filter: drop-shadow(0 0 30px rgba(255,107,43,.15));
 }
 .cs-desc {
   font-size: 16px; line-height: 1.8;

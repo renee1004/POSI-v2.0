@@ -226,11 +226,11 @@ document.head.appendChild(styleEl);
 /* ── KT&G LOGO HOVER GLOW ────────────────────────────────── */
 const ktgSvg = $('.cs-ktg-svg');
 ktgSvg?.addEventListener('mouseenter', () => {
-  ktgSvg.style.filter = 'drop-shadow(0 0 40px rgba(200,247,58,.45))';
+  ktgSvg.style.filter = 'drop-shadow(0 0 40px rgba(255,107,43,.45))';
   ktgSvg.style.transition = 'filter .4s';
 });
 ktgSvg?.addEventListener('mouseleave', () => {
-  ktgSvg.style.filter = 'drop-shadow(0 0 30px rgba(200,247,58,.15))';
+  ktgSvg.style.filter = 'drop-shadow(0 0 30px rgba(255,107,43,.15))';
 });
 
 /* ── LOGO ACCENT DOT INTERACTION ─────────────────────────── */
@@ -239,4 +239,4 @@ $$('.logo-accent-dot, .l-dot').forEach(dot => {
 });
 
 console.log('%c POSI v2 · foundfounded-inspired redesign ',
-  'background:#C8F73A;color:#000;font-weight:700;padding:5px 12px;border-radius:4px;font-size:13px');
+  'background:#FF6B2B;color:#000;font-weight:700;padding:5px 12px;border-radius:4px;font-size:13px');
