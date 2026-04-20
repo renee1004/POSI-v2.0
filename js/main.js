@@ -338,7 +338,7 @@ console.log('%c POSI v2 · foundfounded-inspired redesign ',
 
   PROJECTS.forEach(function(w, i) {
     var item = document.createElement('div');
-    item.className = 'pfs-item' + (i === 0 ? ' pfs-bulge-ready' : '');
+    item.className = 'pfs-item';
     var num = (i + 1) < 10 ? '0' + (i + 1) : String(i + 1);
     item.innerHTML =
       '<div class="pfs-img-wrap">' +
@@ -463,79 +463,6 @@ console.log('%c POSI v2 · foundfounded-inspired redesign ',
   var itemCount = items.length;
 
 
-  function initBulgeCard(item) {
-    if (!item) return;
-    var wrap = item.querySelector('.pfs-img-wrap');
-    var img = wrap && wrap.querySelector('img');
-    if (!wrap || !img) return;
-
-    var lens = document.createElement('div');
-    lens.className = 'pfs-bulge-lens';
-    wrap.appendChild(lens);
-
-    var state = {
-      targetX: 0.5,
-      targetY: 0.5,
-      x: 0.5,
-      y: 0.5,
-      targetP: 0,
-      p: 0,
-      raf: null,
-      active: false
-    };
-
-    function update() {
-      state.x += (state.targetX - state.x) * 0.12;
-      state.y += (state.targetY - state.y) * 0.12;
-      state.p += (state.targetP - state.p) * 0.12;
-
-      var px = (state.x * 100).toFixed(3) + '%';
-      var py = (state.y * 100).toFixed(3) + '%';
-      var push = (state.p * 26).toFixed(2) + 'px';
-      var imgScale = (1 + state.p * 0.035).toFixed(4);
-      var shade = (0.12 + state.p * 0.22).toFixed(3);
-      var localRotY = ((state.x - 0.5) * state.p * 6).toFixed(3) + 'deg';
-      var localRotX = ((0.5 - state.y) * state.p * 5).toFixed(3) + 'deg';
-
-      wrap.style.setProperty('--bulge-x', px);
-      wrap.style.setProperty('--bulge-y', py);
-      wrap.style.setProperty('--bulge-push', push);
-      wrap.style.setProperty('--bulge-scale', imgScale);
-      wrap.style.setProperty('--bulge-shade', shade);
-      wrap.style.setProperty('--bulge-rx', localRotX);
-      wrap.style.setProperty('--bulge-ry', localRotY);
-
-      state.raf = requestAnimationFrame(update);
-    }
-
-    function onMove(e) {
-      var rect = wrap.getBoundingClientRect();
-      if (!rect.width || !rect.height) return;
-      var x = (e.clientX - rect.left) / rect.width;
-      var y = (e.clientY - rect.top) / rect.height;
-      x = Math.max(0, Math.min(1, x));
-      y = Math.max(0, Math.min(1, y));
-      state.targetX = x;
-      state.targetY = y;
-      state.targetP = 1;
-      state.active = true;
-      wrap.classList.add('is-bulging');
-    }
-
-    function onLeave() {
-      state.targetP = 0;
-      state.active = false;
-      wrap.classList.remove('is-bulging');
-    }
-
-    wrap.addEventListener('mousemove', onMove);
-    wrap.addEventListener('mouseenter', onMove);
-    wrap.addEventListener('mouseleave', onLeave);
-
-    state.raf = requestAnimationFrame(update);
-  }
-
-  initBulgeCard(items[0]);
 
 
   /* ── rAF 루프 — vertical curve wave 효과 ── */
