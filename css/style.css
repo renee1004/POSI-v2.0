@@ -1864,7 +1864,6 @@ a.ci-link:hover .ci-val { color: var(--accent); }
   font-family: var(--font-en, sans-serif);
 }
 @media (max-width: 768px) {
-  .work { padding-top: 3rem; }
   #posi-film-strip {
     height: 55vh;
     min-height: 320px;
