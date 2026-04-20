@@ -462,60 +462,46 @@ console.log('%c POSI v2 · foundfounded-inspired redesign ',
   var items = track.querySelectorAll('.pfs-item');
   var itemCount = items.length;
 
-  /* ── rAF 루프 — aristide wave 효과 ── */
+  /* ── rAF 루프 — vertical curve wave 효과 ── */
   function loop() {
-    /* 1) 트랙 translateX lerp */
     var diff = targetX - currentX;
-    currentX = lerp(currentX, targetX, 0.082);
-
-    /* 2) 속도 기반 전체 skewX (트랙 레벨) */
-    var trackSkew = diff * 0.018;
-    trackSkew = Math.max(-12, Math.min(12, trackSkew));
+    currentX = lerp(currentX, targetX, 0.072);
     track.style.transform = 'translateX(' + currentX.toFixed(2) + 'px)';
 
-    /* 3) mouseY lerp */
     mouseY = lerp(mouseY, targetMouseY, 0.08);
 
-    /* 4) 각 카드 개별 변형 — wave + skew + scale */
     var stripRect = strip.getBoundingClientRect();
-    var stripCenterY = stripRect.top + stripRect.height / 2;
+    var velocity = currentX - targetX;
+    var dragForce = Math.max(-1, Math.min(1, velocity / 180));
+    var waveAmp = Math.min(42, Math.abs(diff) * 0.12 + Math.abs(velX * 90));
 
     items.forEach(function(item, i) {
-      var rect = item.getBoundingClientRect();
-      var itemCenterX = rect.left + rect.width / 2;
-      var stripCenterX = stripRect.left + stripRect.width / 2;
+      var t = itemCount <= 1 ? 0 : i / (itemCount - 1);
+      var curve = Math.sin(t * Math.PI);
+      var edgeLift = Math.cos(t * Math.PI * 2) * 0.5;
 
-      /* 카드가 화면 중앙에서 얼마나 떨어졌는지 (0~1) */
-      var distFromCenter = (itemCenterX - stripCenterX) / (stripRect.width * 0.5);
-      distFromCenter = Math.max(-1.5, Math.min(1.5, distFromCenter));
+      /* 핵심: 중앙이 더 크게 처지고, 양끝은 상대적으로 덜 움직이는 수직 곡선 */
+      var yOffset = curve * waveAmp * (-dragForce);
+      yOffset += edgeLift * waveAmp * 0.18 * (dragForce > 0 ? 1 : -1);
 
-      /* wave: 속도 * 카드 위치에 따른 사인 곡선 */
-      var wave = trackSkew * Math.sin((i / itemCount) * Math.PI) * 0.7;
-
-      /* 개별 skewX: 트랙 skew + wave */
-      var itemSkewX = trackSkew * 0.6 + wave;
-
-      /* scaleY: 드래그 중 살짝 세로 찌그러짐 */
-      var scaleY = 1 - Math.abs(trackSkew) * 0.004;
-      scaleY = Math.max(0.92, scaleY);
-
-      /* translateY: 마우스 Y + 중앙 거리 기반 부드러운 흔들림 */
-      var yOffset = 0;
-      if (stripRect.width > 0) {
+      /* 마우스 Y에 따라 곡선 강도 미세 조절 */
+      if (stripRect.height > 0) {
+        var stripCenterY = stripRect.top + stripRect.height / 2;
         var mouseRelY = (mouseY - stripCenterY) / (stripRect.height * 0.5);
         mouseRelY = Math.max(-1, Math.min(1, mouseRelY));
-        yOffset = mouseRelY * distFromCenter * 18 * (isDragging ? 1.4 : 0.6);
+        yOffset += mouseRelY * curve * 10;
       }
 
-      /* scaleX: 가장자리 카드 살짝 축소 — 원근감 */
-      var scaleX = 1 - Math.abs(distFromCenter) * 0.04;
-      scaleX = Math.max(0.88, scaleX);
+      /* 수직 곡선에 맞춘 미세 회전/스케일 */
+      var rotate = dragForce * (0.8 - Math.abs(0.5 - t)) * 2.2;
+      var scaleY = 1 - Math.abs(curve * dragForce) * 0.035;
+      var scaleX = 1 + Math.abs(curve * dragForce) * 0.015;
 
       item.style.transform =
-        'skewX(' + itemSkewX.toFixed(3) + 'deg)' +
+        'translateY(' + yOffset.toFixed(2) + 'px)' +
+        ' rotate(' + rotate.toFixed(3) + 'deg)' +
         ' scaleX(' + scaleX.toFixed(4) + ')' +
-        ' scaleY(' + scaleY.toFixed(4) + ')' +
-        ' translateY(' + yOffset.toFixed(2) + 'px)';
+        ' scaleY(' + scaleY.toFixed(4) + ')';
     });
 
     rafId = requestAnimationFrame(loop);
