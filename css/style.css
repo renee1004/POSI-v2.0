@@ -1384,7 +1384,7 @@ img { max-width: 100%; display: block; }
 .contact-left {
   display: flex;
   flex-direction: column;
-  gap: 48px;
+  gap: 24px;
 }
 
 /* 이메일/전화/주소 링크 */
@@ -1512,7 +1512,7 @@ a.ci-link:hover .ci-val { color: var(--accent); }
 .footer-mid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 48px;
+  gap: 24px;
   padding: 60px 0 0;
   border: none;
   border-radius: 0;
@@ -1732,7 +1732,7 @@ a.ci-link:hover .ci-val { color: var(--accent); }
   display: flex;
   align-items: stretch;
   height: 100%;
-  gap: 48px;
+  gap: 24px;
   padding: 0 5vw;
   transform: translateX(0);
   will-change: transform;
@@ -1749,7 +1749,17 @@ a.ci-link:hover .ci-val { color: var(--accent); }
   transition: box-shadow 0.4s ease;
 }
 .pfs-item::after {
-  content: none;
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0,0,0,0.72) 0%,
+    rgba(0,0,0,0.15) 50%,
+    transparent 75%
+  );
+  pointer-events: none;
+  z-index: 1;
 }
 .pfs-img-wrap {
   position: absolute;
@@ -1944,7 +1954,7 @@ body.pfo-lock { overflow: hidden; }
 .pfo-content {
   display: flex;
   flex-direction: column;
-  gap: 48px;
+  gap: 24px;
   transform: translateX(40px);
   opacity: 0;
   transition: transform 0.65s 0.08s cubic-bezier(0.16,1,0.3,1),
