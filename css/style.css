@@ -1749,17 +1749,7 @@ a.ci-link:hover .ci-val { color: var(--accent); }
   transition: box-shadow 0.4s ease;
 }
 .pfs-item::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    to top,
-    rgba(0,0,0,0.72) 0%,
-    rgba(0,0,0,0.15) 50%,
-    transparent 75%
-  );
-  pointer-events: none;
-  z-index: 1;
+  content: none;
 }
 .pfs-img-wrap {
   position: absolute;
@@ -1776,10 +1766,10 @@ a.ci-link:hover .ci-val { color: var(--accent); }
   transition: transform 0.7s cubic-bezier(0.16,1,0.3,1),
               filter 0.5s ease;
   filter: brightness(0.55) grayscale(15%);
-  transform: scale(1.08);
+  transform: scale(1.12);
 }
 .pfs-item.hovered .pfs-img-wrap img {
-  transform: scale(1.04);
+  transform: scale(1.08);
   filter: brightness(0.9) grayscale(0%);
 }
 .pfs-info {
