@@ -308,182 +308,182 @@ function initHeadlineAnim() {
 console.log('%c POSI v2 · foundfounded-inspired redesign ',
   'background:#FF6B2B;color:#000;font-weight:700;padding:5px 12px;border-radius:4px;font-size:13px');
 
-  /* =========================================
-   POSI FILM STRIP — Selected Projects
+$ cat /tmp/main_top.js > /tmp/main_final.js
+
+cat >> /tmp/main_final.js << 'JSEOF'
+
+/* =========================================
+   POSI FILM STRIP — aristide style
+   lerp + clamp + 10 projects
    ========================================= */
-
 (function initPosiFilmStrip() {
-  const container = document.getElementById('posi-film-strip');
-  if (!container) return;
+  var strip = document.getElementById('posi-film-strip');
+  if (!strip) return;
 
-  const SLIVER_MIN  = 68;
-  const SLIVER_MAX  = 440;
-  const MAX_SPEED   = 2000;
-
-  // POSI project data with Unsplash images
-  const PROJECTS = [
-    { title: 'RIIZE Display',   client: 'LG U+',    cat: 'POSM',    year: '2024', img: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80' },
-    { title: 'Membership KIT', client: 'HYBE',      cat: 'Package', year: '2021', img: 'https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=600&q=80' },
-    { title: 'Galaxy Studio',  client: 'Cheil',     cat: 'Display', year: '2022', img: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=600&q=80' },
-    { title: 'ENHYPEN KIT',    client: 'HYBE',      cat: 'Package', year: '2023', img: 'https://images.unsplash.com/photo-1586495777744-4e6232bf4e7e?w=600&q=80' },
-    { title: 'Floor Stand',    client: 'Samsung',   cat: 'POSM',    year: '2024', img: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=600&q=80' },
-    { title: 'Brand Pop-Up',   client: 'Amorepac',  cat: 'Display', year: '2023', img: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&q=80' },
-    { title: 'Eco Series',     client: 'Innisfree', cat: 'Package', year: '2023', img: 'https://images.unsplash.com/photo-1542219550-37153d387c27?w=600&q=80' },
-    { title: 'Shelf System',   client: 'Lotte',     cat: 'POSM',    year: '2024', img: 'https://images.unsplash.com/photo-1604719312566-8912e9227c6a?w=600&q=80' },
-    { title: 'Premium Set',    client: 'Sulwhasoo', cat: 'Package', year: '2024', img: 'https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=600&q=80' },
-    { title: 'Glorifier',      client: 'SK-II',     cat: 'Display', year: '2023', img: 'https://images.unsplash.com/photo-1522338242992-e1a54906a8da?w=600&q=80' },
+  var PROJECTS = [
+    { title: 'RIIZE Display',   client: 'LG U+',     cat: 'POSM',    year: '2024', img: 'https://www.posi.co.kr/storage/7UWxQ5ADKahYxLktpZsaKHRi0cBQlSU41w3QMsDw.png' },
+    { title: 'Membership KIT',  client: 'HYBE',       cat: 'Package', year: '2021', img: 'https://www.posi.co.kr/storage/9Muoy5efA1LQS9ZlH72VOIw5ALi1bzwnogVN6xQV.png' },
+    { title: 'Galaxy Studio',   client: 'Cheil',      cat: 'Display', year: '2022', img: 'https://raw.githubusercontent.com/renee1004/POSI-v2.0/main/images/S22_01.png' },
+    { title: 'ENHYPEN KIT',     client: 'HYBE',       cat: 'Package', year: '2023', img: 'https://raw.githubusercontent.com/renee1004/POSI-v2.0/main/images/hybe_03.png' },
+    { title: 'Floor Stand',     client: 'Samsung',    cat: 'POSM',    year: '2024', img: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&q=80' },
+    { title: 'Brand Pop-Up',    client: 'Amorepac',   cat: 'Display', year: '2023', img: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&q=80' },
+    { title: 'Eco Package',     client: 'Innisfree',  cat: 'Package', year: '2023', img: 'https://images.unsplash.com/photo-1542219550-37153d387c27?w=800&q=80' },
+    { title: 'Shelf System',    client: 'Lotte',      cat: 'POSM',    year: '2024', img: 'https://images.unsplash.com/photo-1604719312566-8912e9227c6a?w=800&q=80' },
+    { title: 'Premium Set',     client: 'Sulwhasoo',  cat: 'Package', year: '2024', img: 'https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=800&q=80' },
+    { title: 'Glorifier',       client: 'SK-II',      cat: 'Display', year: '2023', img: 'https://images.unsplash.com/photo-1522338242992-e1a54906a8da?w=800&q=80' }
   ];
 
-  // Repeat 3x for wave depth
-  const WORKS = [...PROJECTS, ...PROJECTS, ...PROJECTS];
+  /* 트랙 생성 */
+  var track = document.createElement('div');
+  track.className = 'pfs-track';
+  strip.appendChild(track);
 
-  // Build cursor
-  const cursor = document.createElement('div');
-  cursor.id = 'pfs-cursor';
-  document.body.appendChild(cursor);
-
-  // Build DOM
-  const itemEls = WORKS.map((w, i) => {
-    const btn = document.createElement('button');
-    btn.type = 'button';
-    btn.className = 'pfs-item';
-    btn.style.width = SLIVER_MIN + 'px';
-    btn.setAttribute('aria-label', w.title);
-
-    const img = document.createElement('img');
-    img.src = w.img;
-    img.alt = w.title;
-    img.loading = 'lazy';
-    img.draggable = false;
-
-    const vig = document.createElement('div');
-    vig.className = 'pfs-vignette';
-
-    const label = document.createElement('div');
-    label.className = 'pfs-label';
-    label.innerHTML = '<span>' + w.title + '</span>';
-
-    const cap = document.createElement('div');
-    cap.className = 'pfs-caption';
-    cap.style.background = 'linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 60%)';
-    cap.innerHTML = '<p class="pfs-cat">' + w.cat + ' &middot; ' + w.year + '</p>' +
-                    '<h3>' + w.title + '</h3>' +
-                    '<p class="pfs-client">' + w.client + '</p>';
-
-    const idx = document.createElement('div');
-    idx.className = 'pfs-idx';
-    idx.textContent = String((i % PROJECTS.length) + 1).padStart(2, '0');
-
-    btn.appendChild(img);
-    btn.appendChild(vig);
-    btn.appendChild(label);
-    btn.appendChild(cap);
-    btn.appendChild(idx);
-    container.appendChild(btn);
-
-    btn.addEventListener('click', function() {
-      const ri = i % PROJECTS.length;
-      // scroll to work section if needed
-    });
-
-    return { el: btn, img, vig, label, cap, idx };
+  PROJECTS.forEach(function(w, i) {
+    var item = document.createElement('div');
+    item.className = 'pfs-item';
+    var num = (i + 1) < 10 ? '0' + (i + 1) : String(i + 1);
+    item.innerHTML =
+      '<div class="pfs-img-wrap">' +
+        '<img src="' + w.img + '" alt="' + w.title + '" loading="lazy" draggable="false"/>' +
+      '</div>' +
+      '<div class="pfs-info">' +
+        '<span class="pfs-num">' + num + '</span>' +
+        '<span class="pfs-cat">' + w.cat + ' &middot; ' + w.year + '</span>' +
+        '<h3 class="pfs-title">' + w.title + '</h3>' +
+        '<p class="pfs-client">' + w.client + '</p>' +
+      '</div>';
+    track.appendChild(item);
   });
 
-  // State
-  let mouseX = null;
-  let isInside = false;
-  let rafId = 0;
-  let lastTime = performance.now();
-  let weights = WORKS.map(() => 0);
+  /* DRAG 커서 */
+  var cur = document.createElement('div');
+  cur.id = 'pfs-cursor';
+  cur.innerHTML = '<span>DRAG</span>';
+  document.body.appendChild(cur);
 
-  // Mouse tracking
-  container.addEventListener('mousemove', function(e) {
-    const r = container.getBoundingClientRect();
-    mouseX = e.clientX - r.left;
-    cursor.style.left = e.clientX + 'px';
-    cursor.style.top  = e.clientY + 'px';
-  });
-  container.addEventListener('mouseenter', function() {
-    isInside = true;
-    cursor.style.opacity = '1';
-  });
-  container.addEventListener('mouseleave', function() {
-    isInside = false;
-    mouseX = null;
-    cursor.style.opacity = '0';
+  /* 상태 변수 */
+  var isDragging = false;
+  var startX = 0;
+  var baseX = 0;
+  var currentX = 0;
+  var targetX = 0;
+  var velX = 0;
+  var lastMouseX = 0;
+  var lastT = 0;
+  var rafId = null;
+  var EDGE_PAD = 80;
+
+  function getMinX() {
+    return -(track.scrollWidth - strip.clientWidth + EDGE_PAD);
+  }
+  function getMaxX() {
+    return EDGE_PAD;
+  }
+  function clamp(val, mn, mx) {
+    return Math.min(Math.max(val, mn), mx);
+  }
+  function lerp(a, b, t) {
+    return a + (b - a) * t;
+  }
+
+  /* 마우스 이벤트 */
+  strip.addEventListener('mousemove', function(e) {
+    cur.style.transform = 'translate(' + e.clientX + 'px,' + e.clientY + 'px) translate(-50%,-50%)';
+    if (!isDragging) return;
+    var dx = e.clientX - startX;
+    targetX = clamp(baseX + dx, getMinX(), getMaxX());
+    velX = (e.clientX - lastMouseX) / Math.max(1, performance.now() - lastT);
+    lastMouseX = e.clientX;
+    lastT = performance.now();
   });
 
-  // Vertical wheel -> horizontal scroll
-  container.addEventListener('wheel', function(e) {
-    if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
-      container.scrollLeft += e.deltaY * 1.4;
-      e.preventDefault();
-    }
+  strip.addEventListener('mouseenter', function() {
+    cur.style.opacity = '1';
+  });
+
+  strip.addEventListener('mouseleave', function() {
+    cur.style.opacity = '0';
+    if (isDragging) endDrag();
+  });
+
+  strip.addEventListener('mousedown', function(e) {
+    isDragging = true;
+    strip.classList.add('is-dragging');
+    cur.classList.add('active');
+    startX = e.clientX;
+    lastMouseX = e.clientX;
+    lastT = performance.now();
+    baseX = currentX;
+    velX = 0;
+    e.preventDefault();
+  });
+
+  document.addEventListener('mouseup', function() {
+    if (isDragging) endDrag();
+  });
+
+  /* 터치 */
+  strip.addEventListener('touchstart', function(e) {
+    isDragging = true;
+    startX = e.touches[0].clientX;
+    lastMouseX = startX;
+    lastT = performance.now();
+    baseX = currentX;
+    velX = 0;
+  }, { passive: true });
+
+  strip.addEventListener('touchmove', function(e) {
+    if (!isDragging) return;
+    var dx = e.touches[0].clientX - startX;
+    targetX = clamp(baseX + dx, getMinX(), getMaxX());
+    velX = (e.touches[0].clientX - lastMouseX) / Math.max(1, performance.now() - lastT);
+    lastMouseX = e.touches[0].clientX;
+    lastT = performance.now();
+    e.preventDefault();
   }, { passive: false });
 
-  // rAF loop
-  function loop(now) {
-    const dt = Math.min((now - lastTime) / 1000, 0.05);
-    lastTime = now;
+  strip.addEventListener('touchend', function() {
+    endDrag();
+  });
 
-    // Mouse-driven scroll
-    if (isInside && mouseX !== null) {
-      const cw = container.clientWidth;
-      const norm = (mouseX / cw) * 2 - 1;
-      const dead = 0.28;
-      if (Math.abs(norm) > dead) {
-        const t = (Math.abs(norm) - dead) / (1 - dead);
-        const speed = (norm > 0 ? 1 : -1) * t * t * MAX_SPEED;
-        container.scrollLeft += speed * dt;
-      }
-    }
+  function endDrag() {
+    isDragging = false;
+    strip.classList.remove('is-dragging');
+    cur.classList.remove('active');
+    targetX = clamp(currentX + velX * 120, getMinX(), getMaxX());
+  }
 
-    // Measure focus weights via real DOM positions
-    const cRect = container.getBoundingClientRect();
-    const cx = cRect.left + cRect.width / 2;
-    const falloff = cRect.width * 0.42;
-
-    itemEls.forEach(function(item, i) {
-      const r = item.el.getBoundingClientRect();
-      const ic = r.left + r.width / 2;
-      const dist = Math.abs(ic - cx);
-      const t = Math.min(dist / falloff, 1);
-      weights[i] = Math.max(0, 1 - t * t * t * t);
-    });
-
-    // Apply weights
-    itemEls.forEach(function(item, i) {
-      const w = weights[i];
-      const focused = w > 0.3;
-      const iw = SLIVER_MIN + (SLIVER_MAX - SLIVER_MIN) * w;
-
-      item.el.style.width = iw + 'px';
-
-      item.img.style.filter = focused
-        ? 'grayscale(0%) brightness(1)'
-        : 'grayscale(' + Math.round(100 - w * 70) + '%) brightness(' + (0.5 + w * 0.5).toFixed(2) + ')';
-      item.img.style.transform = 'scale(' + (1.06 - w * 0.06).toFixed(3) + ')';
-
-      item.vig.style.background = focused
-        ? 'linear-gradient(to top, rgba(0,0,0,0.65) 0%, transparent 55%)'
-        : 'rgba(0,0,0,0.2)';
-
-      item.label.style.opacity = focused ? '0' : '0.7';
-
-      item.cap.style.opacity   = focused ? '1' : '0';
-      item.cap.style.transform = focused ? 'translateY(0)' : 'translateY(10px)';
-
-      item.idx.style.opacity = focused ? '1' : '0';
-    });
-
+  /* rAF 루프 lerp */
+  function loop() {
+    var diff = targetX - currentX;
+    var skew = diff * 0.025;
+    skew = Math.max(-10, Math.min(10, skew));
+    currentX = lerp(currentX, targetX, 0.085);
+    track.style.transform = 'translateX(' + currentX.toFixed(2) + 'px) skewX(' + skew.toFixed(3) + 'deg)';
     rafId = requestAnimationFrame(loop);
   }
 
+  /* 호버 */
+  track.querySelectorAll('.pfs-item').forEach(function(item) {
+    item.addEventListener('mouseenter', function() {
+      if (!isDragging) item.classList.add('hovered');
+    });
+    item.addEventListener('mouseleave', function() {
+      item.classList.remove('hovered');
+    });
+  });
+
   rafId = requestAnimationFrame(loop);
 
-  // Clean up on page unload
   window.addEventListener('beforeunload', function() {
     cancelAnimationFrame(rafId);
   });
+})();
+JSEOF
+
+node --check /tmp/main_final.js && echo "✅ 문법 OK" || echo "❌ 오류"
+wc -l /tmp/main_final.js
+✅ 문법 OK
+478 /tmp/main_final.js
 
 })();
