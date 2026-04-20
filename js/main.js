@@ -305,330 +305,223 @@ function initHeadlineAnim() {
 console.log('%c POSI v2 · foundfounded-inspired redesign ',
   'background:#FF6B2B;color:#000;font-weight:700;padding:5px 12px;border-radius:4px;font-size:13px');
 
+
 /* =========================================
-   POSI FILM STRIP — aristide style
-   lerp + clamp + 10 projects
+   AB WORK STAGE — aristide-inspired focus rail
    ========================================= */
-(function initPosiFilmStrip() {
-  var strip = document.getElementById('posi-film-strip');
-  if (!strip) return;
+(function initAbWorkStage() {
+  var root = document.getElementById('ab-work');
+  if (!root) return;
 
   var PROJECTS = [
-    { title: 'RIIZE Display',      client: 'LG U+',      cat: 'POSM',       year: '2024', img: 'https://raw.githubusercontent.com/renee1004/POSI-v2.0/main/images/riize_01.png',  desc: 'LG U+ × RIIZE 콜라보 반응형 디스플레이. 매장 내 고객 시선을 집중시키는 대형 POSM으로, 아티스트 이미지와 브랜드 아이덴티티를 극대화했습니다.' },
-    { title: 'Membership KIT',     client: 'HYBE',        cat: 'Package',    year: '2021', img: 'https://www.posi.co.kr/storage/9Muoy5efA1LQS9ZlH72VOIw5ALi1bzwnogVN6xQV.png',   desc: 'HYBE 아티스트 멤버십 회원 전용 특별 패키지. 팬덤 문화를 반영한 프리미엄 언박싱 경험과 수집 가치를 동시에 설계했습니다.' },
-    { title: 'Galaxy Studio',      client: 'Cheil',       cat: 'Display',    year: '2022', img: 'https://raw.githubusercontent.com/renee1004/POSI-v2.0/main/images/S22.png',       desc: 'Samsung Galaxy S22 체험존 디스플레이 키트. 제품의 혁신적 기술력을 직접 경험하게 하는 인터랙티브 구조물로 제품 구매 전환율을 높였습니다.' },
-    { title: 'ENHYPEN KIT',        client: 'HYBE',        cat: 'Package',    year: '2023', img: 'https://raw.githubusercontent.com/renee1004/POSI-v2.0/main/images/hybe_03.png',   desc: 'ENHYPEN 공식 멤버십 패키지 디자인. 그룹의 세계관과 팬덤 정체성을 담은 한정판 콜렉터블 패키지입니다.' },
-    { title: 'RIIZE Pop-Up',       client: 'LG U+',       cat: 'Display',    year: '2024', img: 'https://www.posi.co.kr/storage/7UWxQ5ADKahYxLktpZsaKHRi0cBQlSU41w3QMsDw.png',   desc: 'RIIZE 팝업 스토어 전체 VM 가이드 및 디스플레이 설계. 브랜드 팝업 공간에서의 몰입형 경험을 극대화한 공간 연출입니다.' },
-    { title: 'Special Edition KIT',client: 'HYBE',        cat: 'Package',    year: '2022', img: 'https://raw.githubusercontent.com/renee1004/POSI-v2.0/main/images/riize_01.png',  desc: '아티스트 스페셜 에디션 한정 패키지. 희소성과 소장 가치를 극대화한 구조 설계 및 소재 선정으로 팬덤 반응을 이끌어냈습니다.' },
-    { title: 'Samsung Experience', client: 'Cheil',       cat: 'Display',    year: '2023', img: 'https://raw.githubusercontent.com/renee1004/POSI-v2.0/main/images/S22.png',       desc: 'Samsung 플래그십 스토어 체험 키트. 소비자가 제품 기능을 직접 체험할 수 있는 3D 구조물 및 인터랙티브 디스플레이를 설계했습니다.' },
-    { title: 'Artist KIT Vol.2',   client: 'HYBE',        cat: 'Package',    year: '2024', img: 'https://raw.githubusercontent.com/renee1004/POSI-v2.0/main/images/hybe_03.png',   desc: 'HYBE 아티스트 공식 굿즈 패키지 2탄. 전작의 성공을 바탕으로 더욱 정교해진 구조와 소재로 프리미엄 언박싱 경험을 완성했습니다.' },
-    { title: 'Responsive POSM',    client: 'LG U+',       cat: 'POSM',       year: '2023', img: 'https://www.posi.co.kr/storage/9Muoy5efA1LQS9ZlH72VOIw5ALi1bzwnogVN6xQV.png',   desc: '다양한 매장 환경에 대응하는 모듈형 POSM 시스템. 공간 크기에 따라 유연하게 변형 가능한 구조로 전국 유통망에 통일된 브랜드 경험을 제공합니다.' },
-    { title: 'Limited Box Set',    client: 'HYBE',        cat: 'Package',    year: '2024', img: 'https://www.posi.co.kr/storage/7UWxQ5ADKahYxLktpZsaKHRi0cBQlSU41w3QMsDw.png',   desc: '연말 한정판 럭셔리 박스 세트. 자석 개폐 구조와 특수 후가공 인쇄를 적용해 선물용 프리미엄 패키지의 완성도를 높였습니다.' },
-    { title: 'Shelf Glorifier',    client: 'Samsung',     cat: 'POSM',       year: '2024', img: 'https://raw.githubusercontent.com/renee1004/POSI-v2.0/main/images/riize_01.png',  desc: 'Samsung 제품 진열 글로리파이어. 선반 위 제품을 돋보이게 하는 아크릴 및 LED 구조물로 매장 내 제품 노출도와 구매 의향을 높였습니다.' },
-    { title: 'Fan Meeting KIT',    client: 'HYBE',        cat: 'Package',    year: '2023', img: 'https://raw.githubusercontent.com/renee1004/POSI-v2.0/main/images/hybe_03.png',   desc: '팬미팅 현장 배포용 스페셜 패키지. 현장의 설렘과 감동을 집으로 가져갈 수 있도록 기획된 기념 패키지로 팬덤 만족도를 극대화했습니다.' },
-    { title: 'Brand Display',      client: 'Cheil',       cat: 'Display',    year: '2022', img: 'https://raw.githubusercontent.com/renee1004/POSI-v2.0/main/images/S22.png',       desc: '브랜드 아이덴티티를 강화하는 대형 인스토어 디스플레이. 소비자 동선을 고려한 전략적 배치로 브랜드 인지도와 체류 시간을 높였습니다.' },
-    { title: 'Premium Gift Set',   client: 'Amorepac',    cat: 'Package',    year: '2024', img: 'https://www.posi.co.kr/storage/9Muoy5efA1LQS9ZlH72VOIw5ALi1bzwnogVN6xQV.png',   desc: 'Amorepacific 프리미엄 선물 세트 패키지. 브랜드의 럭셔리 이미지를 담은 친환경 소재 패키지로 ESG 가치와 심미성을 동시에 구현했습니다.' },
-    { title: 'Store VM Guide',     client: 'Lotte',       cat: 'Activation', year: '2023', img: 'https://www.posi.co.kr/storage/7UWxQ5ADKahYxLktpZsaKHRi0cBQlSU41w3QMsDw.png',   desc: '롯데 전국 매장 VM 가이드 개발. 시즌별 매장 디스플레이 매뉴얼을 제작해 브랜드 일관성을 유지하면서도 지역 특성에 맞는 연출을 가능하게 했습니다.' }
+    { title: 'RIIZE Display', client: 'LG U+', cat: 'POSM', year: '2024', img: 'https://raw.githubusercontent.com/renee1004/POSI-v2.0/main/images/riize_01.png', desc: 'LG U+ × RIIZE 콜라보 반응형 디스플레이. 매장 내 고객 시선을 집중시키는 대형 POSM으로, 아티스트 이미지와 브랜드 아이덴티티를 극대화했습니다.' },
+    { title: 'Membership KIT', client: 'HYBE', cat: 'Package', year: '2021', img: 'https://www.posi.co.kr/storage/9Muoy5efA1LQS9ZlH72VOIw5ALi1bzwnogVN6xQV.png', desc: 'HYBE 아티스트 멤버십 회원 전용 특별 패키지. 팬덤 문화를 반영한 프리미엄 언박싱 경험과 수집 가치를 동시에 설계했습니다.' },
+    { title: 'Galaxy Studio', client: 'Cheil', cat: 'Display', year: '2022', img: 'https://raw.githubusercontent.com/renee1004/POSI-v2.0/main/images/S22.png', desc: 'Samsung Galaxy S22 체험존 디스플레이 키트. 제품의 혁신적 기술력을 직접 경험하게 하는 인터랙티브 구조물로 제품 구매 전환율을 높였습니다.' },
+    { title: 'ENHYPEN KIT', client: 'HYBE', cat: 'Package', year: '2023', img: 'https://raw.githubusercontent.com/renee1004/POSI-v2.0/main/images/hybe_03.png', desc: 'ENHYPEN 공식 멤버십 패키지 디자인. 그룹의 세계관과 팬덤 정체성을 담은 한정판 콜렉터블 패키지입니다.' },
+    { title: 'RIIZE Pop-Up', client: 'LG U+', cat: 'Display', year: '2024', img: 'https://www.posi.co.kr/storage/7UWxQ5ADKahYxLktpZsaKHRi0cBQlSU41w3QMsDw.png', desc: 'RIIZE 팝업 스토어 전체 VM 가이드 및 디스플레이 설계. 브랜드 팝업 공간에서의 몰입형 경험을 극대화한 공간 연출입니다.' },
+    { title: 'Special Edition KIT', client: 'HYBE', cat: 'Package', year: '2022', img: 'https://raw.githubusercontent.com/renee1004/POSI-v2.0/main/images/riize_01.png', desc: '아티스트 스페셜 에디션 한정 패키지. 희소성과 소장 가치를 극대화한 구조 설계 및 소재 선정으로 팬덤 반응을 이끌어냈습니다.' },
+    { title: 'Samsung Experience', client: 'Cheil', cat: 'Display', year: '2023', img: 'https://raw.githubusercontent.com/renee1004/POSI-v2.0/main/images/S22.png', desc: 'Samsung 플래그십 스토어 체험 키트. 소비자가 제품 기능을 직접 체험할 수 있는 3D 구조물 및 인터랙티브 디스플레이를 설계했습니다.' },
+    { title: 'Artist KIT Vol.2', client: 'HYBE', cat: 'Package', year: '2024', img: 'https://raw.githubusercontent.com/renee1004/POSI-v2.0/main/images/hybe_03.png', desc: 'HYBE 아티스트 공식 굿즈 패키지 2탄. 전작의 성공을 바탕으로 더욱 정교해진 구조와 소재로 프리미엄 언박싱 경험을 완성했습니다.' },
+    { title: 'Responsive POSM', client: 'LG U+', cat: 'POSM', year: '2023', img: 'https://www.posi.co.kr/storage/9Muoy5efA1LQS9ZlH72VOIw5ALi1bzwnogVN6xQV.png', desc: '다양한 매장 환경에 대응하는 모듈형 POSM 시스템. 공간 크기에 따라 유연하게 변형 가능한 구조로 전국 유통망에 통일된 브랜드 경험을 제공합니다.' },
+    { title: 'Limited Box Set', client: 'HYBE', cat: 'Package', year: '2024', img: 'https://www.posi.co.kr/storage/7UWxQ5ADKahYxLktpZsaKHRi0cBQlSU41w3QMsDw.png', desc: '연말 한정판 럭셔리 박스 세트. 자석 개폐 구조와 특수 후가공 인쇄를 적용해 선물용 프리미엄 패키지의 완성도를 높였습니다.' },
+    { title: 'Shelf Glorifier', client: 'Samsung', cat: 'POSM', year: '2024', img: 'https://raw.githubusercontent.com/renee1004/POSI-v2.0/main/images/riize_01.png', desc: 'Samsung 제품 진열 글로리파이어. 선반 위 제품을 돋보이게 하는 아크릴 및 LED 구조물로 매장 내 제품 노출도와 구매 의향을 높였습니다.' },
+    { title: 'Fan Meeting KIT', client: 'HYBE', cat: 'Package', year: '2023', img: 'https://raw.githubusercontent.com/renee1004/POSI-v2.0/main/images/hybe_03.png', desc: '팬미팅 현장 배포용 스페셜 패키지. 현장의 설렘과 감동을 집으로 가져갈 수 있도록 기획된 기념 패키지로 팬덤 만족도를 극대화했습니다.' },
+    { title: 'Brand Display', client: 'Cheil', cat: 'Display', year: '2022', img: 'https://raw.githubusercontent.com/renee1004/POSI-v2.0/main/images/S22.png', desc: '브랜드 아이덴티티를 강화하는 대형 인스토어 디스플레이. 소비자 동선을 고려한 전략적 배치로 브랜드 인지도와 체류 시간을 높였습니다.' },
+    { title: 'Premium Gift Set', client: 'Amorepac', cat: 'Package', year: '2024', img: 'https://www.posi.co.kr/storage/9Muoy5efA1LQS9ZlH72VOIw5ALi1bzwnogVN6xQV.png', desc: 'Amorepacific 프리미엄 선물 세트 패키지. 브랜드의 럭셔리 이미지를 담은 친환경 소재 패키지로 ESG 가치와 심미성을 동시에 구현했습니다.' },
+    { title: 'Store VM Guide', client: 'Lotte', cat: 'Activation', year: '2023', img: 'https://www.posi.co.kr/storage/7UWxQ5ADKahYxLktpZsaKHRi0cBQlSU41w3QMsDw.png', desc: '롯데 전국 매장 VM 가이드 개발. 시즌별 매장 디스플레이 매뉴얼을 제작해 브랜드 일관성을 유지하면서도 지역 특성에 맞는 연출을 가능하게 했습니다.' }
   ];
 
-  /* 트랙 생성 */
-  var track = document.createElement('div');
-  track.className = 'pfs-track';
-  strip.appendChild(track);
+  var rail = document.getElementById('ab-rail');
+  var stage = document.getElementById('ab-stage');
+  var stageImg = document.getElementById('ab-stage-img');
+  var stageIndex = document.getElementById('ab-stage-index');
+  var stageMeta = document.getElementById('ab-stage-meta');
+  var stageTitle = document.getElementById('ab-stage-title');
+  var stageClient = document.getElementById('ab-stage-client');
+  var stageDesc = document.getElementById('ab-stage-desc');
 
-  PROJECTS.forEach(function(w, i) {
-    var item = document.createElement('div');
-    item.className = 'pfs-item';
-    var num = (i + 1) < 10 ? '0' + (i + 1) : String(i + 1);
-    item.innerHTML =
-      '<div class="pfs-img-wrap">' +
-        '<img src="' + w.img + '" alt="' + w.title + '" loading="lazy" draggable="false"/>' +
-      '</div>' +
-      '<div class="pfs-info">' +
-        '<span class="pfs-num">' + num + '</span>' +
-        '<span class="pfs-cat">' + w.cat + ' &middot; ' + w.year + '</span>' +
-        '<h3 class="pfs-title">' + w.title + '</h3>' +
-        '<p class="pfs-client">' + w.client + '</p>' +
-      '</div>';
-    track.appendChild(item);
-  });
-
-  /* DRAG 커서 */
-  var cur = document.createElement('div');
-  cur.id = 'pfs-cursor';
-  cur.innerHTML = '<span>DRAG</span>';
-  document.body.appendChild(cur);
-
-  /* 상태 변수 */
-  var isDragging = false;
-  var startX = 0;
-  var baseX = 0;
+  var active = 0;
   var currentX = 0;
   var targetX = 0;
-  var velX = 0;
-  var lastMouseX = 0;
+  var dragging = false;
+  var startX = 0;
+  var baseX = 0;
+  var lastX = 0;
   var lastT = 0;
+  var velocity = 0;
   var rafId = null;
-  var EDGE_PAD = 80;
 
-  function getMinX() {
-    return -(track.scrollWidth - strip.clientWidth + EDGE_PAD);
-  }
-  function getMaxX() {
-    return EDGE_PAD;
-  }
-  function clamp(val, mn, mx) {
-    return Math.min(Math.max(val, mn), mx);
-  }
-  function lerp(a, b, t) {
-    return a + (b - a) * t;
-  }
-
-  /* 마우스 이벤트 */
-  strip.addEventListener('mousemove', function(e) {
-    cur.style.transform = 'translate(' + e.clientX + 'px,' + e.clientY + 'px) translate(-50%,-50%)';
-    if (!isDragging) return;
-    var dx = e.clientX - startX;
-    targetX = clamp(baseX + dx, getMinX(), getMaxX());
-    velX = (e.clientX - lastMouseX) / Math.max(1, performance.now() - lastT);
-    lastMouseX = e.clientX;
-    lastT = performance.now();
+  PROJECTS.forEach(function(p, i) {
+    var card = document.createElement('button');
+    card.className = 'ab-card' + (i === 0 ? ' is-active' : '');
+    card.type = 'button';
+    card.setAttribute('data-index', i);
+    card.innerHTML =
+      '<span class="ab-card-num">' + String(i + 1).padStart(2, '0') + '</span>' +
+      '<span class="ab-card-thumb"><img src="' + p.img + '" alt="' + p.title + '" loading="lazy"></span>' +
+      '<span class="ab-card-copy"><strong>' + p.title + '</strong><em>' + p.client + '</em></span>';
+    card.addEventListener('click', function() {
+      setActive(i, true);
+    });
+    rail.appendChild(card);
   });
 
-  strip.addEventListener('mouseenter', function() {
-    cur.style.opacity = '1';
-  });
+  var cards = Array.prototype.slice.call(rail.querySelectorAll('.ab-card'));
 
-  strip.addEventListener('mouseleave', function() {
-    cur.style.opacity = '0';
-    if (isDragging) endDrag();
-  });
+  function renderStage(i, animate) {
+    var p = PROJECTS[i];
+    if (!p) return;
+    if (animate) stage.classList.add('is-switching');
+    setTimeout(function() {
+      stageImg.src = p.img;
+      stageImg.alt = p.title;
+      stageIndex.textContent = String(i + 1).padStart(2, '0');
+      stageMeta.textContent = p.cat + ' · ' + p.year;
+      stageTitle.textContent = p.title;
+      stageClient.textContent = p.client;
+      stageDesc.textContent = p.desc;
+      stage.classList.remove('is-switching');
+    }, animate ? 120 : 0);
+  }
 
-  strip.addEventListener('mousedown', function(e) {
-    isDragging = true;
-    strip.classList.add('is-dragging');
-    cur.classList.add('active');
+  function centerCard(i) {
+    var card = cards[i];
+    if (!card) return;
+    var railRect = rail.getBoundingClientRect();
+    var cardRect = card.getBoundingClientRect();
+    var localLeft = (cardRect.left - railRect.left) - currentX;
+    targetX = Math.min(0, rail.clientWidth * 0.5 - (localLeft + cardRect.width * 0.5));
+  }
+
+  function setActive(i, animate) {
+    active = i;
+    cards.forEach(function(card, idx) {
+      card.classList.toggle('is-active', idx === i);
+    });
+    renderStage(i, animate);
+    centerCard(i);
+  }
+
+  function clampTarget() {
+    var max = 0;
+    var min = Math.min(0, root.clientWidth - rail.scrollWidth - 40);
+    targetX = Math.max(min, Math.min(max, targetX));
+  }
+
+  function onMove(x) {
+    if (!dragging) return;
+    var dx = x - startX;
+    targetX = baseX + dx;
+    clampTarget();
+    var now = performance.now();
+    velocity = (x - lastX) / Math.max(1, now - lastT);
+    lastX = x;
+    lastT = now;
+  }
+
+  rail.addEventListener('mousedown', function(e) {
+    dragging = true;
+    root.classList.add('is-dragging');
     startX = e.clientX;
-    lastMouseX = e.clientX;
+    lastX = e.clientX;
     lastT = performance.now();
     baseX = currentX;
-    velX = 0;
-    e.preventDefault();
   });
 
-  document.addEventListener('mouseup', function() {
-    if (isDragging) endDrag();
+  window.addEventListener('mousemove', function(e) { onMove(e.clientX); });
+  window.addEventListener('mouseup', function() {
+    if (!dragging) return;
+    dragging = false;
+    root.classList.remove('is-dragging');
+    targetX += velocity * 120;
+    clampTarget();
   });
 
-  /* 터치 */
-  strip.addEventListener('touchstart', function(e) {
-    isDragging = true;
+  rail.addEventListener('touchstart', function(e) {
+    dragging = true;
     startX = e.touches[0].clientX;
-    lastMouseX = startX;
+    lastX = startX;
     lastT = performance.now();
     baseX = currentX;
-    velX = 0;
   }, { passive: true });
 
-  strip.addEventListener('touchmove', function(e) {
-    if (!isDragging) return;
-    var dx = e.touches[0].clientX - startX;
-    targetX = clamp(baseX + dx, getMinX(), getMaxX());
-    velX = (e.touches[0].clientX - lastMouseX) / Math.max(1, performance.now() - lastT);
-    lastMouseX = e.touches[0].clientX;
-    lastT = performance.now();
+  rail.addEventListener('touchmove', function(e) {
+    onMove(e.touches[0].clientX);
     e.preventDefault();
   }, { passive: false });
 
-  strip.addEventListener('touchend', function() {
-    endDrag();
+  rail.addEventListener('touchend', function() {
+    if (!dragging) return;
+    dragging = false;
+    targetX += velocity * 120;
+    clampTarget();
   });
 
-  function endDrag() {
-    isDragging = false;
-    strip.classList.remove('is-dragging');
-    cur.classList.remove('active');
-    targetX = clamp(currentX + velX * 120, getMinX(), getMaxX());
+  root.addEventListener('wheel', function(e) {
+    targetX -= e.deltaY * 0.9;
+    clampTarget();
+    e.preventDefault();
+  }, { passive: false });
+
+  root.addEventListener('mousemove', function(e) {
+    var rect = stage.getBoundingClientRect();
+    var xp = (e.clientX - rect.left) / rect.width - 0.5;
+    var yp = (e.clientY - rect.top) / rect.height - 0.5;
+    stage.style.setProperty('--mx', xp.toFixed(3));
+    stage.style.setProperty('--my', yp.toFixed(3));
+  });
+
+  function autoSelectFromCenter() {
+    var rootRect = root.getBoundingClientRect();
+    var center = rootRect.left + rootRect.width * 0.5;
+    var nearest = active;
+    var minDist = Infinity;
+    cards.forEach(function(card, i) {
+      var r = card.getBoundingClientRect();
+      var c = r.left + r.width * 0.5;
+      var d = Math.abs(center - c);
+      if (d < minDist) {
+        minDist = d;
+        nearest = i;
+      }
+    });
+    if (nearest !== active) {
+      active = nearest;
+      cards.forEach(function(card, idx) {
+        card.classList.toggle('is-active', idx === nearest);
+      });
+      renderStage(nearest, true);
+    }
   }
 
-  /* ── 마우스 Y 트래킹 (물결용) ── */
-  var mouseY = 0;
-  var targetMouseY = 0;
-  strip.addEventListener('mousemove', function(e) {
-    targetMouseY = e.clientY;
-  });
-
-  /* ── 각 카드 개별 wave 상태 ── */
-  var items = track.querySelectorAll('.pfs-item');
-  var itemCount = items.length;
-
-  /* ── rAF 루프 — vertical curve wave 효과 ── */
   function loop() {
-    var diff = targetX - currentX;
-    currentX = lerp(currentX, targetX, 0.072);
-    track.style.transform = 'translateX(' + currentX.toFixed(2) + 'px)';
+    currentX += (targetX - currentX) * 0.08;
+    rail.style.transform = 'translate3d(' + currentX.toFixed(2) + 'px,0,0)';
 
-    mouseY = lerp(mouseY, targetMouseY, 0.08);
-
-    var stripRect = strip.getBoundingClientRect();
-    var velocity = currentX - targetX;
-    var dragForce = Math.max(-1, Math.min(1, velocity / 180));
-    var waveAmp = Math.min(42, Math.abs(diff) * 0.12 + Math.abs(velX * 90));
-
-    items.forEach(function(item, i) {
-      var t = itemCount <= 1 ? 0 : i / (itemCount - 1);
-      var curve = Math.sin(t * Math.PI);
-      var edgeLift = Math.cos(t * Math.PI * 2) * 0.5;
-
-      /* 핵심: 중앙이 더 크게 처지고, 양끝은 상대적으로 덜 움직이는 수직 곡선 */
-      var yOffset = curve * waveAmp * (-dragForce);
-      yOffset += edgeLift * waveAmp * 0.18 * (dragForce > 0 ? 1 : -1);
-
-      /* 마우스 Y에 따라 곡선 강도 미세 조절 */
-      if (stripRect.height > 0) {
-        var stripCenterY = stripRect.top + stripRect.height / 2;
-        var mouseRelY = (mouseY - stripCenterY) / (stripRect.height * 0.5);
-        mouseRelY = Math.max(-1, Math.min(1, mouseRelY));
-        yOffset += mouseRelY * curve * 10;
-      }
-
-      /* 수직 곡선에 맞춘 미세 회전/스케일 */
-      var rotate = dragForce * (0.8 - Math.abs(0.5 - t)) * 2.2;
-      var scaleY = 1 - Math.abs(curve * dragForce) * 0.035;
-      var scaleX = 1 + Math.abs(curve * dragForce) * 0.015;
-
-      item.style.transform =
-        'translateY(' + yOffset.toFixed(2) + 'px)' +
-        ' rotate(' + rotate.toFixed(3) + 'deg)' +
-        ' scaleX(' + scaleX.toFixed(4) + ')' +
-        ' scaleY(' + scaleY.toFixed(4) + ')';
+    var force = Math.max(-1, Math.min(1, (targetX - currentX) / 90));
+    cards.forEach(function(card, i) {
+      var rect = card.getBoundingClientRect();
+      var rootRect = root.getBoundingClientRect();
+      var cx = rect.left + rect.width * 0.5;
+      var rx = rootRect.left + rootRect.width * 0.5;
+      var dist = (cx - rx) / rootRect.width;
+      var curve = Math.sin((i / Math.max(1, cards.length - 1)) * Math.PI);
+      var y = curve * Math.abs(force) * 26 * (force > 0 ? -1 : 1);
+      var rot = force * 7 + dist * 12;
+      var scale = 1 - Math.min(0.12, Math.abs(dist) * 0.22);
+      card.style.setProperty('--ty', y.toFixed(2) + 'px');
+      card.style.setProperty('--rot', rot.toFixed(3) + 'deg');
+      card.style.setProperty('--scale', scale.toFixed(4));
     });
 
+    autoSelectFromCenter();
     rafId = requestAnimationFrame(loop);
   }
 
-  /* ── 호버: 드래그 중 아닐 때만 ── */
-  items.forEach(function(item) {
-    item.addEventListener('mouseenter', function() {
-      if (!isDragging) item.classList.add('hovered');
-    });
-    item.addEventListener('mouseleave', function() {
-      item.classList.remove('hovered');
-    });
-  });
-
+  renderStage(0, false);
+  clampTarget();
   rafId = requestAnimationFrame(loop);
-
-  window.addEventListener('beforeunload', function() {
-    cancelAnimationFrame(rafId);
-  });
-
-  /* ══════════════════════════════════════
-     POSI PROJECT DETAIL OVERLAY
-     클릭 → 전체화면 확대 + 스크롤로 닫기
-  ══════════════════════════════════════ */
-  (function initOverlay() {
-    /* 오버레이 DOM 생성 */
-    var overlay = document.createElement('div');
-    overlay.id = 'pfs-overlay';
-    overlay.innerHTML =
-      '<div class="pfo-backdrop"></div>' +
-      '<div class="pfo-inner">' +
-        '<div class="pfo-img-wrap">' +
-          '<img class="pfo-img" src="" alt="" />' +
-        '</div>' +
-        '<div class="pfo-content">' +
-          '<div class="pfo-meta">' +
-            '<span class="pfo-num"></span>' +
-            '<span class="pfo-cat"></span>' +
-          '</div>' +
-          '<h2 class="pfo-title"></h2>' +
-          '<p class="pfo-client"></p>' +
-          '<p class="pfo-desc"></p>' +
-          '<div class="pfo-scroll-hint"><span>SCROLL TO CLOSE</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12l7 7 7-7"/></svg></div>' +
-        '</div>' +
-        '<button class="pfo-close" aria-label="닫기">' +
-          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 6L6 18M6 6l12 12"/></svg>' +
-        '</button>' +
-      '</div>';
-    document.body.appendChild(overlay);
-
-    var activeIndex = -1;
-    var isOpen = false;
-    var scrollAccum = 0;
-    var SCROLL_THRESHOLD = 120;
-
-    function openOverlay(idx) {
-      var p = PROJECTS[idx];
-      if (!p) return;
-      activeIndex = idx;
-      isOpen = true;
-      scrollAccum = 0;
-
-      overlay.querySelector('.pfo-img').src = p.img;
-      overlay.querySelector('.pfo-img').alt = p.title;
-      overlay.querySelector('.pfo-num').textContent = (idx + 1 < 10 ? '0' + (idx + 1) : idx + 1) + ' / ' + PROJECTS.length;
-      overlay.querySelector('.pfo-cat').textContent = p.cat + ' · ' + p.year;
-      overlay.querySelector('.pfo-title').textContent = p.title;
-      overlay.querySelector('.pfo-client').textContent = p.client;
-      overlay.querySelector('.pfo-desc').textContent = p.desc || '';
-
-      overlay.classList.add('is-open');
-      document.body.classList.add('pfo-lock');
-    }
-
-    function closeOverlay() {
-      isOpen = false;
-      activeIndex = -1;
-      overlay.classList.remove('is-open');
-      overlay.classList.add('is-closing');
-      document.body.classList.remove('pfo-lock');
-      setTimeout(function() {
-        overlay.classList.remove('is-closing');
-      }, 600);
-    }
-
-    /* 카드 클릭 이벤트 */
-    items.forEach(function(item, i) {
-      item.addEventListener('click', function() {
-        if (isDragging) return;
-        openOverlay(i);
-      });
-      item.style.cursor = 'pointer';
-    });
-
-    /* 닫기 버튼 */
-    overlay.querySelector('.pfo-close').addEventListener('click', closeOverlay);
-
-    /* 배경 클릭 닫기 */
-    overlay.querySelector('.pfo-backdrop').addEventListener('click', closeOverlay);
-
-    /* 스크롤로 닫기 */
-    overlay.addEventListener('wheel', function(e) {
-      if (!isOpen) return;
-      scrollAccum += Math.abs(e.deltaY);
-      var bar = overlay.querySelector('.pfo-scroll-hint span');
-      var pct = Math.min(scrollAccum / SCROLL_THRESHOLD, 1);
-      if (bar) bar.style.opacity = 0.3 + pct * 0.7;
-      if (scrollAccum >= SCROLL_THRESHOLD) closeOverlay();
-      e.preventDefault();
-    }, { passive: false });
-
-    /* 터치 스와이프 다운으로 닫기 */
-    var touchStartY = 0;
-    overlay.addEventListener('touchstart', function(e) {
-      touchStartY = e.touches[0].clientY;
-    }, { passive: true });
-    overlay.addEventListener('touchmove', function(e) {
-      if (!isOpen) return;
-      var dy = e.touches[0].clientY - touchStartY;
-      if (dy > 80) closeOverlay();
-    }, { passive: true });
-
-    /* ESC 키 닫기 */
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape' && isOpen) closeOverlay();
-    });
-  })();
-
+  window.addEventListener('resize', function() { clampTarget(); centerCard(active); });
+  window.addEventListener('beforeunload', function() { cancelAnimationFrame(rafId); });
 })();
+
