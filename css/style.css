@@ -1697,147 +1697,230 @@ a.ci-link:hover .ci-val { color: var(--accent); }
   .contact-dot-svg { display: none; }
 }
 
-/* =========================================
-   POSI FILM STRIP — Selected Projects
+$ curl -s https://raw.githubusercontent.com/renee1004/POSI-v2.0/main/css/style.css > /tmp/style_orig.css
+
+python3 << 'PYEOF'
+with open('/tmp/style_orig.css', 'r', encoding='utf-8') as f:
+    content = f.read()
+
+# pfs 섹션 시작 위치 찾기
+marker = '/* =========================================\n   POSI FILM STRIP'
+idx = content.find(marker)
+if idx == -1:
+    # 두번째 시도
+    marker = 'POSI FILM STRIP'
+    idx = content.rfind(marker)
+    # 주석 시작 찾기
+    idx = content.rfind('/*', 0, idx)
+
+print("PFS 섹션 시작 위치:", idx)
+base = content[:idx]
+
+new_pfs = '''/* =========================================
+   POSI FILM STRIP — aristide drag style
    ========================================= */
 
-   #posi-film-strip {
-    position: relative;
-    width: 100%;
-    height: 65vh;
-    min-height: 400px;
-    display: flex;
-    overflow-x: auto;
-    overflow-y: hidden;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-    gap: 4px;
-    padding-left: calc(50vw - 220px);
-    padding-right: calc(50vw - 220px);
-    align-items: stretch;
-    cursor: none;
-    background: #080808;
+/* Work 섹션 전체 블랙 */
+.work {
+  padding-top: 5rem;
+  padding-bottom: 0 !important;
+  background: #000 !important;
+  color: #fff;
+}
+[data-theme="dark"] .work,
+[data-theme="light"] .work { background: #000 !important; }
+
+.work .section-num,
+.work .section-label { color: rgba(255,255,255,0.3) !important; }
+
+.work .sec-title { color: #fff !important; }
+.work .sec-title em { color: #FF6B2B !important; font-style: italic; }
+
+.pfs-outer {
+  width: 100%;
+  background: #000;
+  padding-bottom: 2.5rem;
+}
+
+#posi-film-strip {
+  width: 100%;
+  height: 70vh;
+  min-height: 440px;
+  background: #000;
+  overflow: hidden;
+  cursor: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+#posi-film-strip.is-dragging { cursor: grabbing !important; }
+
+.pfs-track {
+  display: flex;
+  align-items: stretch;
+  height: 100%;
+  gap: 4px;
+  padding: 0 5vw;
+  transform: translateX(0) skewX(0deg);
+  will-change: transform;
+}
+
+.pfs-item {
+  position: relative;
+  flex-shrink: 0;
+  width: 300px;
+  height: 100%;
+  overflow: hidden;
+  background: #111;
+}
+
+.pfs-item::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0,0,0,0.88) 0%,
+    rgba(0,0,0,0.15) 50%,
+    transparent 75%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+.pfs-img-wrap {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.pfs-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  pointer-events: none;
+  transition: transform 0.7s cubic-bezier(0.16,1,0.3,1),
+              filter 0.5s ease;
+  filter: brightness(0.55) grayscale(15%);
+  transform: scale(1.08);
+}
+
+.pfs-item.hovered .pfs-img-wrap img {
+  transform: scale(1.0);
+  filter: brightness(0.9) grayscale(0%);
+}
+
+.pfs-info {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  padding: 28px 22px;
+  z-index: 2;
+  transform: translateY(14px);
+  opacity: 0;
+  transition: opacity 0.4s ease, transform 0.45s ease;
+}
+
+.pfs-item.hovered .pfs-info {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.pfs-num {
+  display: block;
+  font-size: 9px;
+  letter-spacing: 0.3em;
+  color: rgba(255,255,255,0.35);
+  margin-bottom: 6px;
+  font-family: var(--font-en, sans-serif);
+}
+
+.pfs-cat {
+  display: block;
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 8px;
+  font-family: var(--font-en, sans-serif);
+}
+
+.pfs-title {
+  color: #fff;
+  font-size: clamp(15px, 1.6vw, 21px);
+  font-weight: 500;
+  line-height: 1.2;
+  margin: 0 0 4px;
+}
+
+.pfs-client {
+  font-size: 11px;
+  color: rgba(255,255,255,0.45);
+  font-family: var(--font-en, sans-serif);
+  margin: 0;
+}
+
+/* DRAG 커서 */
+#pfs-cursor {
+  position: fixed;
+  width: 74px;
+  height: 74px;
+  background: #fff;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.25s ease, width 0.2s ease, height 0.2s ease, background 0.2s ease;
+}
+#pfs-cursor span {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  color: #000;
+  font-family: var(--font-en, sans-serif);
+}
+#pfs-cursor.active {
+  width: 58px;
+  height: 58px;
+  background: #ddd;
+}
+
+/* DRAG 힌트 */
+.pfs-drag-hint {
+  text-align: center;
+  padding: 1.2rem 0 1.8rem;
+  font-size: 9px;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.18);
+  background: #000;
+  font-family: var(--font-en, sans-serif);
+}
+
+@media (max-width: 768px) {
+  .work { padding-top: 3rem; }
+  #posi-film-strip {
+    height: 55vh;
+    min-height: 320px;
+    cursor: grab;
   }
-  
-  #posi-film-strip::-webkit-scrollbar { display: none; }
-  
-  .pfs-item {
-    position: relative;
-    flex-shrink: 0;
-    height: 100%;
-    overflow: hidden;
-    transition: width 0.12s ease-out;
-    cursor: pointer;
-  }
-  
-  .pfs-item img {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center top;
-    transition: filter 0.55s ease, transform 0.55s ease;
-    pointer-events: none;
-    user-select: none;
-    -webkit-user-drag: none;
-  }
-  
-  .pfs-vignette {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    transition: background 0.55s ease;
-  }
-  
-  .pfs-label {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    padding-bottom: 20px;
-    pointer-events: none;
-    transition: opacity 0.4s ease;
-  }
-  
-  .pfs-label span {
-    writing-mode: vertical-rl;
-    transform: rotate(180deg);
-    color: #fff;
-    font-size: 9px;
-    letter-spacing: 0.28em;
-    text-transform: uppercase;
-    white-space: nowrap;
-    font-family: var(--font-en, sans-serif);
-  }
-  
-  .pfs-caption {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    padding: 24px;
-    pointer-events: none;
-    transition: opacity 0.45s ease, transform 0.45s ease;
-  }
-  
-  .pfs-caption .pfs-cat {
-    font-size: 9px;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.5);
-    margin-bottom: 6px;
-    font-family: var(--font-en, sans-serif);
-  }
-  
-  .pfs-caption h3 {
-    color: #fff;
-    font-size: clamp(16px, 2vw, 22px);
-    line-height: 1.2;
-    margin: 0 0 4px;
-  }
-  
-  .pfs-caption .pfs-client {
-    font-size: 11px;
-    color: rgba(255,255,255,0.55);
-    font-family: var(--font-en, sans-serif);
-  }
-  
-  .pfs-idx {
-    position: absolute;
-    top: 16px;
-    right: 16px;
-    font-size: 9px;
-    letter-spacing: 0.2em;
-    color: rgba(255,255,255,0.3);
-    pointer-events: none;
-    transition: opacity 0.4s ease;
-    font-family: var(--font-en, sans-serif);
-    font-variant-numeric: tabular-nums;
-  }
-  
-  /* Cursor dot */
-  #pfs-cursor {
-    position: fixed;
-    width: 8px;
-    height: 8px;
-    background: #fff;
-    border-radius: 50%;
-    pointer-events: none;
-    transform: translate(-50%, -50%);
-    transition: opacity 0.3s ease;
-    z-index: 9999;
-    opacity: 0;
-  }
-  
-  /* Work section override — remove default padding-bottom */
-  .work { padding-bottom: 0 !important; }
-  
-  @media (max-width: 768px) {
-    #posi-film-strip {
-      height: 50vh;
-      padding-left: 16px;
-      padding-right: 16px;
-    }
-  }
+  #posi-film-strip.is-dragging { cursor: grabbing; }
+  .pfs-item { width: 240px; }
+  #pfs-cursor { display: none; }
+  .pfs-info { opacity: 1 !important; transform: translateY(0) !important; }
+}
+'''
+
+final = base + new_pfs
+with open('/tmp/style_final.css', 'w', encoding='utf-8') as f:
+    f.write(final)
+print("✅ style.css 완성")
+print("라인 수:", final.count('\n'))
+PYEOF
+PFS 섹션 시작 위치: 43179
+✅ style.css 완성
+라인 수: 1896
