@@ -1701,7 +1701,7 @@ a.ci-link:hover .ci-val { color: var(--accent); }
    ========================================= */
 /* Work 섹션 전체 블랙 */
 .work {
-  padding-top: 5rem;
+  padding-top: 140px;
   padding-bottom: 0 !important;
   background: #000 !important;
   color: #fff;
@@ -1711,7 +1711,7 @@ a.ci-link:hover .ci-val { color: var(--accent); }
 .work .section-num,
 .work .section-label { color: rgba(255,255,255,0.3) !important; }
 .work .sec-title { color: #fff !important; }
-.work .sec-title em { color: #FF6B2B !important; font-style: italic; }
+.work .sec-title em { color: #FF6B2B !important; font-style: normal; }
 .pfs-outer {
   width: 100%;
   background: #000;
@@ -1864,7 +1864,6 @@ a.ci-link:hover .ci-val { color: var(--accent); }
   font-family: var(--font-en, sans-serif);
 }
 @media (max-width: 768px) {
-  .work { padding-top: 3rem; }
   #posi-film-strip {
     height: 55vh;
     min-height: 320px;
