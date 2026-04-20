@@ -48,7 +48,6 @@ window.addEventListener('load', () => {
     document.body.style.overflow = '';
     initCounters();
     runReveal();
-    initHeadlineAnim();   /* ✅ 이 줄 추가 */
   }, 1900);
 });
 
@@ -259,7 +258,6 @@ function initHeadlineAnim() {
   const headline = document.getElementById('headline-anim');
   if (!headline) return;
 
-  /* ✅ 이미 처리됐으면 스킵 */
   if (headline.querySelector('.char')) return;
 
   const ems = [...headline.querySelectorAll('em')];
@@ -290,7 +288,6 @@ function initHeadlineAnim() {
     em.querySelectorAll('.char').forEach(c => c.style.color = 'var(--accent)');
   });
 
-  /* ✅ IntersectionObserver — about 섹션 스크롤 시 실행 */
   const io = new IntersectionObserver(entries => {
     entries.forEach(en => {
       if (en.isIntersecting) {
@@ -308,10 +305,6 @@ function initHeadlineAnim() {
 console.log('%c POSI v2 · foundfounded-inspired redesign ',
   'background:#FF6B2B;color:#000;font-weight:700;padding:5px 12px;border-radius:4px;font-size:13px');
 
-$ cat /tmp/main_top.js > /tmp/main_final.js
-
-cat >> /tmp/main_final.js << 'JSEOF'
-
 /* =========================================
    POSI FILM STRIP — aristide style
    lerp + clamp + 10 projects
@@ -321,16 +314,21 @@ cat >> /tmp/main_final.js << 'JSEOF'
   if (!strip) return;
 
   var PROJECTS = [
-    { title: 'RIIZE Display',   client: 'LG U+',     cat: 'POSM',    year: '2024', img: 'https://www.posi.co.kr/storage/7UWxQ5ADKahYxLktpZsaKHRi0cBQlSU41w3QMsDw.png' },
-    { title: 'Membership KIT',  client: 'HYBE',       cat: 'Package', year: '2021', img: 'https://www.posi.co.kr/storage/9Muoy5efA1LQS9ZlH72VOIw5ALi1bzwnogVN6xQV.png' },
-    { title: 'Galaxy Studio',   client: 'Cheil',      cat: 'Display', year: '2022', img: 'https://raw.githubusercontent.com/renee1004/POSI-v2.0/main/images/S22_01.png' },
-    { title: 'ENHYPEN KIT',     client: 'HYBE',       cat: 'Package', year: '2023', img: 'https://raw.githubusercontent.com/renee1004/POSI-v2.0/main/images/hybe_03.png' },
-    { title: 'Floor Stand',     client: 'Samsung',    cat: 'POSM',    year: '2024', img: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&q=80' },
-    { title: 'Brand Pop-Up',    client: 'Amorepac',   cat: 'Display', year: '2023', img: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&q=80' },
-    { title: 'Eco Package',     client: 'Innisfree',  cat: 'Package', year: '2023', img: 'https://images.unsplash.com/photo-1542219550-37153d387c27?w=800&q=80' },
-    { title: 'Shelf System',    client: 'Lotte',      cat: 'POSM',    year: '2024', img: 'https://images.unsplash.com/photo-1604719312566-8912e9227c6a?w=800&q=80' },
-    { title: 'Premium Set',     client: 'Sulwhasoo',  cat: 'Package', year: '2024', img: 'https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=800&q=80' },
-    { title: 'Glorifier',       client: 'SK-II',      cat: 'Display', year: '2023', img: 'https://images.unsplash.com/photo-1522338242992-e1a54906a8da?w=800&q=80' }
+    { title: 'RIIZE Display',      client: 'LG U+',      cat: 'POSM',       year: '2024', img: 'https://raw.githubusercontent.com/renee1004/POSI-v2.0/main/images/riize_01.png',  desc: 'LG U+ × RIIZE 콜라보 반응형 디스플레이. 매장 내 고객 시선을 집중시키는 대형 POSM으로, 아티스트 이미지와 브랜드 아이덴티티를 극대화했습니다.' },
+    { title: 'Membership KIT',     client: 'HYBE',        cat: 'Package',    year: '2021', img: 'https://www.posi.co.kr/storage/9Muoy5efA1LQS9ZlH72VOIw5ALi1bzwnogVN6xQV.png',   desc: 'HYBE 아티스트 멤버십 회원 전용 특별 패키지. 팬덤 문화를 반영한 프리미엄 언박싱 경험과 수집 가치를 동시에 설계했습니다.' },
+    { title: 'Galaxy Studio',      client: 'Cheil',       cat: 'Display',    year: '2022', img: 'https://raw.githubusercontent.com/renee1004/POSI-v2.0/main/images/S22.png',       desc: 'Samsung Galaxy S22 체험존 디스플레이 키트. 제품의 혁신적 기술력을 직접 경험하게 하는 인터랙티브 구조물로 제품 구매 전환율을 높였습니다.' },
+    { title: 'ENHYPEN KIT',        client: 'HYBE',        cat: 'Package',    year: '2023', img: 'https://raw.githubusercontent.com/renee1004/POSI-v2.0/main/images/hybe_03.png',   desc: 'ENHYPEN 공식 멤버십 패키지 디자인. 그룹의 세계관과 팬덤 정체성을 담은 한정판 콜렉터블 패키지입니다.' },
+    { title: 'RIIZE Pop-Up',       client: 'LG U+',       cat: 'Display',    year: '2024', img: 'https://www.posi.co.kr/storage/7UWxQ5ADKahYxLktpZsaKHRi0cBQlSU41w3QMsDw.png',   desc: 'RIIZE 팝업 스토어 전체 VM 가이드 및 디스플레이 설계. 브랜드 팝업 공간에서의 몰입형 경험을 극대화한 공간 연출입니다.' },
+    { title: 'Special Edition KIT',client: 'HYBE',        cat: 'Package',    year: '2022', img: 'https://raw.githubusercontent.com/renee1004/POSI-v2.0/main/images/riize_01.png',  desc: '아티스트 스페셜 에디션 한정 패키지. 희소성과 소장 가치를 극대화한 구조 설계 및 소재 선정으로 팬덤 반응을 이끌어냈습니다.' },
+    { title: 'Samsung Experience', client: 'Cheil',       cat: 'Display',    year: '2023', img: 'https://raw.githubusercontent.com/renee1004/POSI-v2.0/main/images/S22.png',       desc: 'Samsung 플래그십 스토어 체험 키트. 소비자가 제품 기능을 직접 체험할 수 있는 3D 구조물 및 인터랙티브 디스플레이를 설계했습니다.' },
+    { title: 'Artist KIT Vol.2',   client: 'HYBE',        cat: 'Package',    year: '2024', img: 'https://raw.githubusercontent.com/renee1004/POSI-v2.0/main/images/hybe_03.png',   desc: 'HYBE 아티스트 공식 굿즈 패키지 2탄. 전작의 성공을 바탕으로 더욱 정교해진 구조와 소재로 프리미엄 언박싱 경험을 완성했습니다.' },
+    { title: 'Responsive POSM',    client: 'LG U+',       cat: 'POSM',       year: '2023', img: 'https://www.posi.co.kr/storage/9Muoy5efA1LQS9ZlH72VOIw5ALi1bzwnogVN6xQV.png',   desc: '다양한 매장 환경에 대응하는 모듈형 POSM 시스템. 공간 크기에 따라 유연하게 변형 가능한 구조로 전국 유통망에 통일된 브랜드 경험을 제공합니다.' },
+    { title: 'Limited Box Set',    client: 'HYBE',        cat: 'Package',    year: '2024', img: 'https://www.posi.co.kr/storage/7UWxQ5ADKahYxLktpZsaKHRi0cBQlSU41w3QMsDw.png',   desc: '연말 한정판 럭셔리 박스 세트. 자석 개폐 구조와 특수 후가공 인쇄를 적용해 선물용 프리미엄 패키지의 완성도를 높였습니다.' },
+    { title: 'Shelf Glorifier',    client: 'Samsung',     cat: 'POSM',       year: '2024', img: 'https://raw.githubusercontent.com/renee1004/POSI-v2.0/main/images/riize_01.png',  desc: 'Samsung 제품 진열 글로리파이어. 선반 위 제품을 돋보이게 하는 아크릴 및 LED 구조물로 매장 내 제품 노출도와 구매 의향을 높였습니다.' },
+    { title: 'Fan Meeting KIT',    client: 'HYBE',        cat: 'Package',    year: '2023', img: 'https://raw.githubusercontent.com/renee1004/POSI-v2.0/main/images/hybe_03.png',   desc: '팬미팅 현장 배포용 스페셜 패키지. 현장의 설렘과 감동을 집으로 가져갈 수 있도록 기획된 기념 패키지로 팬덤 만족도를 극대화했습니다.' },
+    { title: 'Brand Display',      client: 'Cheil',       cat: 'Display',    year: '2022', img: 'https://raw.githubusercontent.com/renee1004/POSI-v2.0/main/images/S22.png',       desc: '브랜드 아이덴티티를 강화하는 대형 인스토어 디스플레이. 소비자 동선을 고려한 전략적 배치로 브랜드 인지도와 체류 시간을 높였습니다.' },
+    { title: 'Premium Gift Set',   client: 'Amorepac',    cat: 'Package',    year: '2024', img: 'https://www.posi.co.kr/storage/9Muoy5efA1LQS9ZlH72VOIw5ALi1bzwnogVN6xQV.png',   desc: 'Amorepacific 프리미엄 선물 세트 패키지. 브랜드의 럭셔리 이미지를 담은 친환경 소재 패키지로 ESG 가치와 심미성을 동시에 구현했습니다.' },
+    { title: 'Store VM Guide',     client: 'Lotte',       cat: 'Activation', year: '2023', img: 'https://www.posi.co.kr/storage/7UWxQ5ADKahYxLktpZsaKHRi0cBQlSU41w3QMsDw.png',   desc: '롯데 전국 매장 VM 가이드 개발. 시즌별 매장 디스플레이 매뉴얼을 제작해 브랜드 일관성을 유지하면서도 지역 특성에 맞는 연출을 가능하게 했습니다.' }
   ];
 
   /* 트랙 생성 */
@@ -453,18 +451,78 @@ cat >> /tmp/main_final.js << 'JSEOF'
     targetX = clamp(currentX + velX * 120, getMinX(), getMaxX());
   }
 
-  /* rAF 루프 lerp */
+  /* ── 마우스 Y 트래킹 (물결용) ── */
+  var mouseY = 0;
+  var targetMouseY = 0;
+  strip.addEventListener('mousemove', function(e) {
+    targetMouseY = e.clientY;
+  });
+
+  /* ── 각 카드 개별 wave 상태 ── */
+  var items = track.querySelectorAll('.pfs-item');
+  var itemCount = items.length;
+
+  /* ── rAF 루프 — aristide wave 효과 ── */
   function loop() {
+    /* 1) 트랙 translateX lerp */
     var diff = targetX - currentX;
-    var skew = diff * 0.025;
-    skew = Math.max(-10, Math.min(10, skew));
-    currentX = lerp(currentX, targetX, 0.085);
-    track.style.transform = 'translateX(' + currentX.toFixed(2) + 'px) skewX(' + skew.toFixed(3) + 'deg)';
+    currentX = lerp(currentX, targetX, 0.082);
+
+    /* 2) 속도 기반 전체 skewX (트랙 레벨) */
+    var trackSkew = diff * 0.018;
+    trackSkew = Math.max(-12, Math.min(12, trackSkew));
+    track.style.transform = 'translateX(' + currentX.toFixed(2) + 'px)';
+
+    /* 3) mouseY lerp */
+    mouseY = lerp(mouseY, targetMouseY, 0.08);
+
+    /* 4) 각 카드 개별 변형 — wave + skew + scale */
+    var stripRect = strip.getBoundingClientRect();
+    var stripCenterY = stripRect.top + stripRect.height / 2;
+
+    items.forEach(function(item, i) {
+      var rect = item.getBoundingClientRect();
+      var itemCenterX = rect.left + rect.width / 2;
+      var stripCenterX = stripRect.left + stripRect.width / 2;
+
+      /* 카드가 화면 중앙에서 얼마나 떨어졌는지 (0~1) */
+      var distFromCenter = (itemCenterX - stripCenterX) / (stripRect.width * 0.5);
+      distFromCenter = Math.max(-1.5, Math.min(1.5, distFromCenter));
+
+      /* wave: 속도 * 카드 위치에 따른 사인 곡선 */
+      var wave = trackSkew * Math.sin((i / itemCount) * Math.PI) * 0.7;
+
+      /* 개별 skewX: 트랙 skew + wave */
+      var itemSkewX = trackSkew * 0.6 + wave;
+
+      /* scaleY: 드래그 중 살짝 세로 찌그러짐 */
+      var scaleY = 1 - Math.abs(trackSkew) * 0.004;
+      scaleY = Math.max(0.92, scaleY);
+
+      /* translateY: 마우스 Y + 중앙 거리 기반 부드러운 흔들림 */
+      var yOffset = 0;
+      if (stripRect.width > 0) {
+        var mouseRelY = (mouseY - stripCenterY) / (stripRect.height * 0.5);
+        mouseRelY = Math.max(-1, Math.min(1, mouseRelY));
+        yOffset = mouseRelY * distFromCenter * 18 * (isDragging ? 1.4 : 0.6);
+      }
+
+      /* scaleX: 가장자리 카드 살짝 축소 — 원근감 */
+      var scaleX = 1 - Math.abs(distFromCenter) * 0.04;
+      scaleX = Math.max(0.88, scaleX);
+
+      item.style.transform =
+        'skewX(' + itemSkewX.toFixed(3) + 'deg)' +
+        ' scaleX(' + scaleX.toFixed(4) + ')' +
+        ' scaleY(' + scaleY.toFixed(4) + ')' +
+        ' translateY(' + yOffset.toFixed(2) + 'px)';
+    });
+
     rafId = requestAnimationFrame(loop);
   }
 
-  /* 호버 */
-  track.querySelectorAll('.pfs-item').forEach(function(item) {
+  /* ── 호버: 드래그 중 아닐 때만 ── */
+  items.forEach(function(item) {
     item.addEventListener('mouseenter', function() {
       if (!isDragging) item.classList.add('hovered');
     });
@@ -478,12 +536,113 @@ cat >> /tmp/main_final.js << 'JSEOF'
   window.addEventListener('beforeunload', function() {
     cancelAnimationFrame(rafId);
   });
-})();
-JSEOF
 
-node --check /tmp/main_final.js && echo "✅ 문법 OK" || echo "❌ 오류"
-wc -l /tmp/main_final.js
-✅ 문법 OK
-478 /tmp/main_final.js
+  /* ══════════════════════════════════════
+     POSI PROJECT DETAIL OVERLAY
+     클릭 → 전체화면 확대 + 스크롤로 닫기
+  ══════════════════════════════════════ */
+  (function initOverlay() {
+    /* 오버레이 DOM 생성 */
+    var overlay = document.createElement('div');
+    overlay.id = 'pfs-overlay';
+    overlay.innerHTML =
+      '<div class="pfo-backdrop"></div>' +
+      '<div class="pfo-inner">' +
+        '<div class="pfo-img-wrap">' +
+          '<img class="pfo-img" src="" alt="" />' +
+        '</div>' +
+        '<div class="pfo-content">' +
+          '<div class="pfo-meta">' +
+            '<span class="pfo-num"></span>' +
+            '<span class="pfo-cat"></span>' +
+          '</div>' +
+          '<h2 class="pfo-title"></h2>' +
+          '<p class="pfo-client"></p>' +
+          '<p class="pfo-desc"></p>' +
+          '<div class="pfo-scroll-hint"><span>SCROLL TO CLOSE</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12l7 7 7-7"/></svg></div>' +
+        '</div>' +
+        '<button class="pfo-close" aria-label="닫기">' +
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 6L6 18M6 6l12 12"/></svg>' +
+        '</button>' +
+      '</div>';
+    document.body.appendChild(overlay);
+
+    var activeIndex = -1;
+    var isOpen = false;
+    var scrollAccum = 0;
+    var SCROLL_THRESHOLD = 120;
+
+    function openOverlay(idx) {
+      var p = PROJECTS[idx];
+      if (!p) return;
+      activeIndex = idx;
+      isOpen = true;
+      scrollAccum = 0;
+
+      overlay.querySelector('.pfo-img').src = p.img;
+      overlay.querySelector('.pfo-img').alt = p.title;
+      overlay.querySelector('.pfo-num').textContent = (idx + 1 < 10 ? '0' + (idx + 1) : idx + 1) + ' / ' + PROJECTS.length;
+      overlay.querySelector('.pfo-cat').textContent = p.cat + ' · ' + p.year;
+      overlay.querySelector('.pfo-title').textContent = p.title;
+      overlay.querySelector('.pfo-client').textContent = p.client;
+      overlay.querySelector('.pfo-desc').textContent = p.desc || '';
+
+      overlay.classList.add('is-open');
+      document.body.classList.add('pfo-lock');
+    }
+
+    function closeOverlay() {
+      isOpen = false;
+      activeIndex = -1;
+      overlay.classList.remove('is-open');
+      overlay.classList.add('is-closing');
+      document.body.classList.remove('pfo-lock');
+      setTimeout(function() {
+        overlay.classList.remove('is-closing');
+      }, 600);
+    }
+
+    /* 카드 클릭 이벤트 */
+    items.forEach(function(item, i) {
+      item.addEventListener('click', function() {
+        if (isDragging) return;
+        openOverlay(i);
+      });
+      item.style.cursor = 'pointer';
+    });
+
+    /* 닫기 버튼 */
+    overlay.querySelector('.pfo-close').addEventListener('click', closeOverlay);
+
+    /* 배경 클릭 닫기 */
+    overlay.querySelector('.pfo-backdrop').addEventListener('click', closeOverlay);
+
+    /* 스크롤로 닫기 */
+    overlay.addEventListener('wheel', function(e) {
+      if (!isOpen) return;
+      scrollAccum += Math.abs(e.deltaY);
+      var bar = overlay.querySelector('.pfo-scroll-hint span');
+      var pct = Math.min(scrollAccum / SCROLL_THRESHOLD, 1);
+      if (bar) bar.style.opacity = 0.3 + pct * 0.7;
+      if (scrollAccum >= SCROLL_THRESHOLD) closeOverlay();
+      e.preventDefault();
+    }, { passive: false });
+
+    /* 터치 스와이프 다운으로 닫기 */
+    var touchStartY = 0;
+    overlay.addEventListener('touchstart', function(e) {
+      touchStartY = e.touches[0].clientY;
+    }, { passive: true });
+    overlay.addEventListener('touchmove', function(e) {
+      if (!isOpen) return;
+      var dy = e.touches[0].clientY - touchStartY;
+      if (dy > 80) closeOverlay();
+    }, { passive: true });
+
+    /* ESC 키 닫기 */
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && isOpen) closeOverlay();
+    });
+  })();
 
 })();
