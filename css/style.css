@@ -1732,7 +1732,7 @@ a.ci-link:hover .ci-val { color: var(--accent); }
   display: flex;
   align-items: stretch;
   height: 100%;
-  gap: 24px;
+  gap: 48px;
   padding: 0 5vw;
   transform: translateX(0);
   will-change: transform;
@@ -1749,17 +1749,7 @@ a.ci-link:hover .ci-val { color: var(--accent); }
   transition: box-shadow 0.4s ease;
 }
 .pfs-item::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    to top,
-    rgba(0,0,0,0.72) 0%,
-    rgba(0,0,0,0.15) 50%,
-    transparent 75%
-  );
-  pointer-events: none;
-  z-index: 1;
+  content: none;
 }
 .pfs-img-wrap {
   position: absolute;
@@ -1954,7 +1944,7 @@ body.pfo-lock { overflow: hidden; }
 .pfo-content {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 48px;
   transform: translateX(40px);
   opacity: 0;
   transition: transform 0.65s 0.08s cubic-bezier(0.16,1,0.3,1),
