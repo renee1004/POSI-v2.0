@@ -470,7 +470,20 @@ console.log('%c POSI v2 · foundfounded-inspired redesign ',
     var diff = targetX - currentX;
     currentX = lerp(currentX, targetX, 0.072);
     track.style.transform = 'translateX(' + currentX.toFixed(2) + 'px)';
-
+      /* ── 면분할: focusWeight 계산 후 width 적용 ── */
+      var stripCx = strip.getBoundingClientRect().left + strip.clientWidth / 2;
+      items.forEach(function(item, i) {
+        var r   = item.getBoundingClientRect();
+        var icx = r.left + r.width / 2;
+        var dist    = Math.abs(icx - stripCx);
+        var falloff = strip.clientWidth * 0.42;
+        var tv  = Math.min(dist / falloff, 1);
+        var fw  = Math.max(0, 1 - tv * tv * tv * tv);
+        /* 호버한 카드는 최소 0.85 보장 */
+        if (hoverIdx === i) fw = Math.max(fw, 0.85);
+        focusWeights[i] = fw;
+        item.style.width = (SLIVER_W + (SLIVER_FOCUS - SLIVER_W) * fw).toFixed(1) + 'px';
+      });
     mouseY = lerp(mouseY, targetMouseY, 0.08);
 
     var stripRect = strip.getBoundingClientRect();
@@ -511,17 +524,30 @@ console.log('%c POSI v2 · foundfounded-inspired redesign ',
     rafId = requestAnimationFrame(loop);
   }
 
-  /* ── 호버: 드래그 중 아닐 때만 ── */
-  items.forEach(function(item) {
-    item.addEventListener('mouseenter', function() {
-      if (!isDragging) item.classList.add('hovered');
+    /* ── 면분할 + 호버 ── */
+    var SLIVER_W     = 72;
+    var SLIVER_FOCUS = 420;
+    var focusWeights = Array.from(items).map(function(){ return 0; });
+    var hoverIdx     = -1;
+  
+    items.forEach(function(item, i) {
+      item.addEventListener('mouseenter', function() {
+        if (!isDragging) { item.classList.add('hovered'); hoverIdx = i; }
+      });
+      item.addEventListener('mouseleave', function() {
+        item.classList.remove('hovered'); hoverIdx = -1;
+      });
     });
-    item.addEventListener('mouseleave', function() {
-      item.classList.remove('hovered');
-    });
-  });
 
   rafId = requestAnimationFrame(loop);
+  
+  /* ── 휠 → 수평 이동 ── */
+  strip.addEventListener('wheel', function(e) {
+    if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+      targetX = clamp(targetX - e.deltaY * 2.2, getMinX(), getMaxX());
+      e.preventDefault();
+    }
+  }, { passive: false });
 
   window.addEventListener('beforeunload', function() {
     cancelAnimationFrame(rafId);
