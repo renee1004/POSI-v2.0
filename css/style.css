@@ -111,7 +111,7 @@
 
 .service .svc-tags span {
   background: #e6e0d8 !important;
-  color: ##505050 !important;
+  color: #505050  !important;
   border-color: rgba(0,0,0,.18) !important;
 }
 
@@ -1697,8 +1697,9 @@ a.ci-link:hover .ci-val { color: var(--accent); }
   .contact-dot-svg { display: none; }
 }
 
-   POSI FILM STRIP — aristide drag style
-   ========================================= */
+/* POSI FILM STRIP — aristide drag style
+========================================= */
+
 /* Work 섹션 전체 블랙 */
 .work {
   padding-top: 140px;
@@ -1732,7 +1733,7 @@ a.ci-link:hover .ci-val { color: var(--accent); }
   display: flex;
   align-items: stretch;
   height: 100%;
-  gap: 24px;
+  gap: 12px;
   padding: 0 5vw;
   transform: translateX(0);
   will-change: transform;
@@ -1740,7 +1741,6 @@ a.ci-link:hover .ci-val { color: var(--accent); }
 .pfs-item {
   position: relative;
   flex-shrink: 0;
-  width: 300px;
   height: 100%;
   overflow: hidden;
   background: #111;
@@ -1749,7 +1749,17 @@ a.ci-link:hover .ci-val { color: var(--accent); }
   transition: box-shadow 0.4s ease;
 }
 .pfs-item::after {
-  content: none;
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.45) 0%,
+    rgba(0, 0, 0, 0.10) 25%,
+    transparent 70%
+  );
+  z-index: 1;
+  pointer-events: none;
 }
 .pfs-img-wrap {
   position: absolute;
@@ -1860,7 +1870,6 @@ a.ci-link:hover .ci-val { color: var(--accent); }
     cursor: grab;
   }
   #posi-film-strip.is-dragging { cursor: grabbing; }
-  .pfs-item { width: 240px; }
   #pfs-cursor { display: none; }
   .pfs-info { opacity: 1 !important; transform: translateY(0) !important; }
 }
