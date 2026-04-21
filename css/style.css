@@ -653,7 +653,7 @@ img { max-width: 100%; display: block; }
   display: flex; gap: 36px;
 }
 .f-stat {
-  text-align: right;
+  text-align: center;
 }
 .f-num {
   font-size: 36px; font-weight: 700; letter-spacing: -.03em;
